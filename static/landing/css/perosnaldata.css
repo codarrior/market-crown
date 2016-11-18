@@ -1,0 +1,39 @@
+.mc-personaldata {
+    background-color: rgba(39, 50, 56, 0.9);
+    position: absolute;
+    left: 0;
+    top: 50px;
+    width: 100%;
+    height: 600%;
+    opacity: 1;
+    z-index: 999;
+}
+
+.mc-pd-submit{
+    font-size: 1.5em !important;
+    display:block !important;
+    width:40% !important;
+    height:40px !important;
+    margin:10px auto !important;
+}
+
+.form-error-common{
+    color: #db3330;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: -10px;
+}
+
+.form-error-email{
+    color: #db3330;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: -10px;
+}
+
+.form-error-nick{
+    color: #db3330;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: -10px;
+}

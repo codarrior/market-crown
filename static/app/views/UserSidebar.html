@@ -1,0 +1,212 @@
+<div class="col-lg-3 user-info" ng-controller="UserInfoCtrl">
+
+<div class="dashboard-element">
+
+<div class="user-info-header">
+
+<label class="btn-file">
+    <img ng-src="{{basicUserInfo.photos[0].value || '/userpics/$default.png'}}" alt=""/>
+	<span class="edit avatar" ng-show="basicUserInfo.mc_username==currentUsername"></span>
+    <input type="file" id="fileInput" name="avatar" style="display:none;" ngf-select="uploadFiles($file)" accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
+</label>
+<label class="error-upload" ng-show="errorUpload">Error in uploading avatar, try again</label>
+<div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+      <span class="progress" ng-show="f.progress >= 0">
+          <div style="width:{{f.progress}}%"  
+               ng-bind="f.progress + '%'"></div>
+      </span>
+  </div>     
+  {{errorMsg}}
+
+<h2>{{basicUserInfo.mc_username}}</h2>
+<h2 class="subtitle" ng-show="!isEditProfession" ng-click="isEditProfessionCheck();">{{basicUserInfo.profession}}<span class="edit profession" ng-show="basicUserInfo.mc_username==currentUsername"></span></h2>
+<div ng-show="isEditProfession && basicUserInfo.mc_username==currentUsername">
+	<input type="text" name="profession" ng-model="basicUserInfo.profession" />
+	<div class="buttons">
+        <button class="pull-right btn btn-success" type="button" ng-click="updateProfessionTagline();isEditProfession=false;">Submit</button>
+        <button class="btn pull-right btn-cancel" ng-click="isEditProfession=false;dismisEditTag();">Cancel</button>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<p ng-show="!isEditTagline" ng-click="isEditTaglineCheck();">{{basicUserInfo.tagline}}
+    <span class="edit tagline" ng-show="basicUserInfo.mc_username==currentUsername"></span>
+</p>
+<div ng-show="isEditTagline && basicUserInfo.mc_username==currentUsername">
+	<input type="text" name="profession" ng-model="basicUserInfo.tagline" />
+	<div class="buttons">
+        <button class="pull-right btn btn-success" type="button" ng-click="updateProfessionTagline();isEditTagline=false;">Submit</button>
+        <button class="btn pull-right btn-cancel" ng-click="isEditTagline=false;dismisEditTag();">Cancel</button>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+</div>
+
+<div class="select-market">
+<label>
+<select name="chartPeriod" ng-model="userInfoMarketSelected" ng-options="period.name for period in userInfoMarket">
+</select>
+</label>
+</div>
+
+<div class="user-info-elements">
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h4 class="panel-title">
+<a role="button" data-toggle="collapse" data-parent="#accordion" href="#at-a-glance" aria-expanded="true" aria-controls="collapseOne">
+At a Glance
+</a>
+</h4>
+</div>
+
+<div id="at-a-glance" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+<div class="panel-body">
+<ul>
+<li>Community Rank: </li>
+<li><span>{{atGlanceData.community_rank}}</span></li>
+</ul>
+
+<ul>
+<li>Rank Length: </li>
+<li><span>{{atGlanceData.reign_length}} days</span></li>
+</ul>
+
+<ul>
+<li>Validated Forecasts: </li>
+<li><span>{{atGlanceData.Forecasts}}</span></li>
+</ul>
+
+<ul>
+<li>Pending Forecasts: </li>
+<li><span>{{atGlanceData.pending_forecasts}}</span></li>
+</ul>
+
+<ul>
+<li>Forecast Style: </li>
+<li><span>{{atGlanceData.forecast_style}}</span></li>
+</ul>
+
+<ul>
+<li>Performance score: </li>
+<li><span>{{atGlanceData.user_performance_index}}</span></li>
+</ul>
+
+<ul>
+<li>Favourite Market Cap: </li>
+<li><span>{{atGlanceData.favorite_marketcap}}</span></li>
+</ul>
+
+<ul>
+<li>Favourite Sector: </li>
+<li><span>{{atGlanceData.favorite_sector}}</span></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading" role="tab" id="headingOne">
+<h4 class="panel-title">
+<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+Sector Preference
+</a>
+</h4>
+</div>
+<div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+<div class="panel-body">
+<canvas id="pie" class="chart chart-pie"
+chart-data="sectorPreferenceData" chart-labels="sectorPreferenceLabel" chart-legend="true"  chart-options="{
+tooltipTemplate: '<%= value %> %',
+}">
+</canvas>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading" role="tab" id="headingTwo">
+<h4 class="panel-title">
+<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+Total % Correct
+</a>
+</h4>
+</div>
+<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+<div class="panel-body">
+<canvas id="pie" class="chart chart-pie"
+chart-data="correctData" chart-labels="correctLabel" chart-legend="true" chart-options="{
+animation: false,
+tooltipTemplate: '<%= value %> %',
+}">
+</canvas>
+</div>
+</div>
+</div>
+
+
+
+<div class="panel panel-default">
+<div class="panel-heading" role="tab" id="headingThree">
+<h4 class="panel-title">
+<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+Forecast Sentiment
+</a>
+</h4>
+</div>
+<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+<div class="panel-body">
+<canvas id="pie3" class="chart chart-pie"
+chart-data="forecastSentimentData" chart-labels="forecastSentimentLabel" chart-legend="true"  chart-options="{
+animation: false,
+tooltipTemplate: '<%= value %> %',
+}">
+</canvas>
+
+</div>
+</div>
+</div>
+
+<div class="panel panel-default">
+<div class="panel-heading" role="tab" id="headingFour">
+<h4 class="panel-title">
+<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+Your Market Cap Preference
+</a>
+</h4>
+</div>
+<div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+<div class="panel-body">
+<canvas id="pie" class="chart chart-pie"
+chart-data="marketCapPreferenceData" chart-labels="marketCapPreferenceLabel" chart-legend="true"  chart-options="{
+animation: false,
+tooltipTemplate: '<%= value %> %',
+}">
+</canvas>
+</div>
+</div>
+</div>
+
+
+<div class="panel panel-default">
+<div class="panel-heading" role="tab" id="headingFive">
+<h4 class="panel-title">
+<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
+Time of the Day Preference
+</a>
+</h4>
+</div>
+<div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+<div class="panel-body">
+<canvas id="pie" class="chart chart-pie"
+chart-data="timeOfTheDayPreferenceData " chart-labels="timeOfTheDayPreferenceLabel" chart-legend="true" chart-options="{
+animation: false,
+tooltipTemplate: '<%= value %> %',
+}">
+</canvas>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>

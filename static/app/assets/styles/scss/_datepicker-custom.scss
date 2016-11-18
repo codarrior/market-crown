@@ -1,0 +1,112 @@
+.ui-datepicker {
+	width: 270px;
+	border: 1px solid #7a97a4 !important;
+}
+
+.ui-widget {
+	font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
+	background: #2e3641;
+	border: none;
+	border-radius: 0;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+}
+
+.ui-datepicker {
+	padding: 0;
+}
+
+.ui-datepicker-header {
+	border: none;
+	background: transparent;
+	font-weight: normal;
+	font-size: 15px;
+}
+
+.ui-datepicker-header .ui-state-hover {
+	background: transparent;
+	border-color: transparent;
+	cursor: pointer;
+	border-radius: 0;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+}
+
+.ui-datepicker .ui-datepicker-title {
+	margin-top: .4em;
+	margin-bottom: .3em;
+	color: #e9f0f4;
+}
+
+.ui-datepicker .ui-datepicker-prev-hover,
+.ui-datepicker .ui-datepicker-next-hover,
+.ui-datepicker .ui-datepicker-next,
+.ui-datepicker .ui-datepicker-prev {
+	top: .9em;
+	border:none;
+}
+
+.ui-datepicker .ui-datepicker-prev-hover {
+	left: 2px;
+}
+
+.ui-datepicker .ui-datepicker-next-hover {
+	right: 2px;
+}
+
+.ui-datepicker .ui-datepicker-next span,
+.ui-datepicker .ui-datepicker-prev span {
+	background-image: url(../../images/ui-icons_ffffff_256x240.png);
+	background-position: -32px 0;
+	margin-top: 0;
+	top: 0;
+	font-weight: normal;
+}
+
+.ui-datepicker .ui-datepicker-prev span {
+	background-position: -96px 0;
+}
+
+.ui-datepicker table {
+	margin: 0 !important;
+}
+
+.ui-datepicker th {
+	padding: 1em 0 !important;
+	color: #ccc !important;
+	font-size: 13px !important;
+	font-weight: normal !important;
+	border: none !important;
+	border-top: 1px solid #3a414d !important;
+}
+
+.ui-datepicker td {
+	background: #39464d;
+	border: none;
+	padding: 0;
+}
+
+td .ui-state-default {
+	background: transparent !important;
+	border: none !important;
+	text-align: center !important;
+	padding: .5em !important;
+	margin: 0 !important;
+	font-weight: normal !important;
+	color: #efefef !important;
+	font-size: 1.1em !important;
+}
+
+.ui-state-disabled  {
+	opacity: 1 !important;
+}
+
+.ui-state-disabled .ui-state-default {
+	color: #fba49e !important;
+}
+
+td .ui-state-active,
+td .ui-state-hover {
+	background: #2e3641 !important;
+}
+

@@ -1,0 +1,108 @@
+/*BUTTONS*/
+.btn-dropshadow {
+	-webkit-box-shadow: .8px .8px 2px .8px rgba(0, 0, 0, 0.35);
+	-moz-box-shadow: .8px .8px 2px .8px rgba(0, 0, 0, 0.35);
+	box-shadow: .8px .8px 2px .8px rgba(0, 0, 0, 0.35);
+
+	&:hover {
+		-webkit-box-shadow: .5px .5px .5px .5px rgba(0, 0, 0, 0.25);
+		-moz-box-shadow: .5px .5px .5px .5px rgba(0, 0, 0, 0.25);
+		box-shadow: .5px .5px .5px .5px rgba(0, 0, 0, 0.25);
+	}
+	&:hover {
+		-webkit-box-shadow: .5px .5px .5px .5px rgba(0, 0, 0, 0.25);
+		-moz-box-shadow: .5px .5px .5px .5px rgba(0, 0, 0, 0.25);
+		box-shadow: .5px .5px .5px .5px rgba(0, 0, 0, 0.25);
+	}
+	&:active {
+		-webkit-box-shadow: .5px .5px .5px .5px rgba(0, 0, 0, 0.25);
+		-moz-box-shadow: .5px .5px .5px .5px rgba(0, 0, 0, 0.25);
+		box-shadow: .5px .5px .5px .5px rgba(0, 0, 0, 0.25);
+	}
+}
+.btn-basic {
+	font-size: .9em;
+	color: @base-textwhite;
+	background: rgba(76, 176, 80, 1);
+	font-weight: bold;
+	padding-top: 3px;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4cb050', endColorstr='#036934', GradientType=0);
+	border: 1px solid @btn-lightgreen;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#369344', endColorstr='#4cb050', GradientType=1);
+
+	&:hover, &:active, &:focus, &:target {
+		color: @base-textwhite;
+		border: 1px solid @btn-darkgreen;
+	}
+}
+.ghost-button {
+	color: @btn-lightgreen;
+	border: 2px solid @btn-lightgreen;
+	border-radius: 50px;
+	width: 80%;
+	font-size: .8em;
+	text-decoration: none;
+	padding: 5px 15px;
+
+	&:hover, &:active, &:focus {
+		background-color: @btn-lightgreen;
+		color: @base-textwhite;
+		text-decoration: none;
+	}
+}
+.mc-loginbtn {
+	.btn-basic;
+	.btn-dropshadow;
+	padding-left: 8px;
+	width: 80px;
+	height: 25px;
+	margin-top: 20px;
+	margin-left: 5px;
+	margin-right: 15px;
+	margin-bottom: 10px;
+	background: -moz-linear-gradient(top, rgba(76, 176, 80, 1) 0%, rgba(3, 105, 52, 1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(76, 176, 80, 1)), color-stop(100%, rgba(3, 105, 52, 1)));
+	background: -webkit-linear-gradient(top, rgba(76, 176, 80, 1) 0%, rgba(3, 105, 52, 1) 100%);
+	background: -o-linear-gradient(top, rgba(76, 176, 80, 1) 0%, rgba(3, 105, 52, 1) 100%);
+	background: -ms-linear-gradient(top, rgba(76, 176, 80, 1) 0%, rgba(3, 105, 52, 1) 100%);
+	background: linear-gradient(to bottom, rgba(76, 176, 80, 1) 0%, rgba(3, 105, 52, 1) 100%);
+
+	&:hover {
+		background: -moz-linear-gradient(bottom, rgba(76, 176, 80, 1) 0%, rgba(3, 105, 52, 1) 100%);
+		background: -webkit-gradient(left bottom, left top, color-stop(0%, rgba(76, 176, 80, 1)), color-stop(100%, rgba(3, 105, 52, 1)));
+		background: -webkit-linear-gradient(bottom, rgba(76, 176, 80, 1) 0%, rgba(3, 105, 52, 1) 100%);
+		background: -o-linear-gradient(bottom, rgba(76, 176, 80, 1) 0%, rgba(3, 105, 52, 1) 100%);
+		background: -ms-linear-gradient(bottom, rgba(76, 176, 80, 1) 0%, rgba(3, 105, 52, 1) 100%);
+		background: linear-gradient(to top, rgba(76, 176, 80, 1) 0%, rgba(3, 105, 52, 1) 100%);
+	}
+}
+.mc-smsignup {
+	.mc-smlogin;
+}
+.mc-signupbtn {
+	.btn-basic;
+	.btn-dropshadow;
+	background-color: @btn-lightgreen;
+	border: 2px solid @btn-darkgreen;
+	margin: 10px 0px;
+	width: 130px;
+	height: 40px;
+	font-size: 1.5em;
+	padding-top: 3px;
+	padding-bottom: 0px;
+	font-weight: bold;
+
+	&:hover, &:active, &:focus, &:target {
+		background-color: @btn-lightgreen;
+	}
+}
+.btn-learnmore {
+	.ghost-button;
+	font-weight: bold;
+	font-size: 1em;
+	margin-top: 30px;
+	margin-bottom: 20px;
+}
+.navbar-toggle {
+	margin-top: 16px;
+}

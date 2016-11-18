@@ -1,0 +1,197 @@
+<div class="dashboard-element microblogs">
+
+    <div class="microblogs-header">
+    </div>
+
+    <div class="create-microblog">
+        <img src="assets/images/collapse.png" alt="" class="collapse">
+        <form class="form-horizontal" ng-class="{ focused: microblogs.formFocused, blur: !microblogs.formFocused }" ng-submit="createTopic()">
+            <div class="form-group">
+                <div class="col-lg-12">
+                    <textarea ng-focus="microblogs.formFocused = true" ng-model="microblogs.new.message" required class="form-control" rows="1" id="textArea" placeholder="What's on your mind?..use $symbol and #hastag"></textarea>
+                </div>
+            </div>
+
+            <div class="controls" ng-show="microblogs.formFocused">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row-regular">
+                            <div class="col-md-6 col-lg-7 new-market">
+                                <ui-select ng-model="microblogs.new.market" theme="bootstrap" ng-disabled="disabled" on-select="refreshSymbols()">
+                                    <ui-select-match placeholder="Select a market"><img ng-src="assets/images/flags/{{$select.selected.flag}}" alt="">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-choices repeat="market in microblogs.new.markets | filter: $select.search">
+                                        <img ng-src="assets/images/flags/{{market.flag}}" alt="">{{market.name}}
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+
+                            <div class="col-md-6 col-lg-5 submit-wrap">
+                                <div class="buttons">
+                                    <button class="pull-right btn btn-success" type="submit">Submit</button>
+                                    <p class="btn pull-right btn-cancel" ng-click="dismissCreateMicroblogForm()">Cancel</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="filter-microblogs">
+        <div class="inner">
+            <div class="row-regular">
+                <div class="col-md-6 market_select">
+                    <ui-select ng-model="microblogs.filter" theme="bootstrap" ng-disabled="disabled" >
+                        <ui-select-match placeholder="Select a market">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="filter in microblogs.filters | filter: $select.search | limitTo:8">
+                            {{filter.name}}
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+
+                <div class="col-md-6 market_filter">
+                    <ui-select ng-model="microblogs.filterMarket" theme="bootstrap" ng-disabled="disabled">
+                        <ui-select-match placeholder="Select a market"><img ng-src="assets/images/flags/{{$select.selected.flag}}" alt="">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices repeat="market in microblogs.new.markets | filter: $select.search | limitTo:8">
+                            <img ng-src="assets/images/flags/{{market.flag}}" alt="">{{market.name}}
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="row-regular">
+                <div class="col-lg-8">
+                    <div class="sectors" ng-show="microblogs.filter.query_type == 'sectors'">
+                        <ui-select multiple ng-model="microblogs.filter.sector" theme="bootstrap">
+                            <ui-select-match placeholder="Sectors...">{{$item}}</ui-select-match>
+                            <ui-select-choices repeat="sector in sectors | filter:$select.search | limitTo:8" position="down">
+                                {{sector}}
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+
+                    <div class="sectors" ng-show="microblogs.filter.query_type == 'userlist'">
+                        <ui-select multiple ng-model="microblogs.filter.user" theme="bootstrap">
+                            <ui-select-match placeholder="Users...">{{$item}}</ui-select-match>
+                            <ui-select-choices repeat="user in users | filter:$select.search | limitTo:8" position="down">
+                                {{user}}
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <!--refresh="refreshAddresses($select.search)"-->
+                    <!--refresh-delay="0"-->
+
+                    <div class="symbols input-field enter-symbol" ng-show="microblogs.filter.query_type == 'symbols'">
+                        <ui-select multiple ng-model="microblogs.filter.symbol" theme="bootstrap">
+                            <ui-select-match placeholder="Symbols...">{{$item.name}}</ui-select-match>
+                            <ui-select-choices repeat=" symbol.symbol as symbol in symbols  | filter:$select.search | limitTo:8" position="down">
+                                {{symbol.name}}
+                            </ui-select-choices>
+                        </ui-select>
+                        <!--<input type="text" placeholder="Enter new symbol..."-->
+                        <!--ng-model="microblogs.filter.symbol"-->
+                        <!--typeahead-editable="false"-->
+                        <!--typeahead-input-formatter="formatLabel($model)"-->
+                        <!--required = "true"-->
+                        <!--value="{{symbol.name}}"-->
+                        <!--uib-typeahead="symbol.symbol as symbol.name for symbol in symbols | filter:$viewValue | limitTo:8" class="form-control">-->
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <button class="btn btn-success pull-right" ng-click="submitFilters()">Submit</button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="microblogs-elements-feed" infinite-scroll="getDefaultMicroblogs(currentUsername, 'us', 'default')">
+        <div class="element" ng-repeat="item in microblogs.data | limitTo:maxMessages ">
+
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="img-container" popover-placement="bottom" uib-popover="{{item.user}}" popover-trigger="mouseenter" ng-click="gotoProfile(item.user)">
+                        <img ng-src="{{item.avatar}}" alt="">
+                    </div>
+                </div>
+
+                <div class="col-lg-10">
+                    <p class="theme">
+                        {{item.theme_name}}
+                    </p>
+
+                    <p class="message" ng-bind-html="item.message">
+                        <!--{{item.message}}-->
+                    </p>
+                    <div class="row-regular">
+                        <div class="col-sm-6 col-lg-8">
+                            <p class="text-left author">{{item.activity_time}}</p>
+                            <!--<img src="assets/images/calendar-small.png" alt="">-->
+                        </div>
+                        <div class="col-sm-6 col-lg-4">
+                            <button ng-click="getClickedMicroblogElement(item)"
+                                    ng-hide="item.theme_id == microblogs.clickedMicroblogElement.theme_id"
+                                    style="    border: none;overflow: hidden;padding-bottom: 0px;padding-top: 0px;    line-height: 26px;"
+                                    class="btn pull-right">Reply <span style="  width: initial;  border-radius: 0px;display: inline-block;margin-right: -12px;margin-left: 8px;padding-right: 12px;padding-left: 10px;line-height: 26px;">{{item.replies}}</span></button>
+                        </div>
+                    </div>
+                    <!--<img src="assets/images/reply.png" alt="">-->
+                    <div class="clearfix"></div>
+
+                    <div class="reply-form" id="{{item.theme_id}}" ng-show="item.theme_id == microblogs.clickedMicroblogElement.theme_id">
+                        <div class="replies">
+                            <div class="reply-element" ng-repeat="reply in microblogs.replies">
+                                <div class="row-regular">
+                                    <div class="col-sm-3">
+
+                                        <div class="img-container" popover-placement="bottom" uib-popover="{{reply.user}}" popover-trigger="mouseenter"  ng-click="gotoProfile(reply.user)">
+                                            <img ng-src="{{reply.avatar }}" alt="">
+                                        </div>
+                                        <!--<p class="author">-->
+                                        <!--<a href="#/user/{{reply.user}}">-->
+                                        <!--{{reply.user}}-->
+                                        <!--</a>-->
+                                        <!--</p>-->
+                                    </div>
+
+                                    <div class="col-sm-9">
+                                        <p class="message" ng-bind-html="reply.reply"></p>
+                                        <p class="text-left author pull-right" >{{reply.created}}</p>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <form class="form-horizontal" ng-submit="sendReply(item.theme_id)">
+                            <div class="form-group" ng-class="">
+                                <div class="col-lg-12">
+                                    <textarea ng-model="microblogs.replyData" required class="form-control" rows="2" id="reply" placeholder="Reply"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-12">
+                                    <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                                    <p class="btn btn-cancel pull-right" ng-click="dismissReplyForm()" class="cancel">Close</p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button  class="btn btn-primary" ng-click="showMoreMessages()" ng-show="maxMessages<microblogs.data.length">Load more...</button>
+    </div>
+
+
+</div>

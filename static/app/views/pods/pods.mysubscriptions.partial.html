@@ -1,0 +1,177 @@
+<div class="col-lg-12 padding-right-0">
+    <div class="row pods-elements">
+
+        <div class="row">
+            <div class=" col-lg-8" data-toggle="buttons">
+                <h4 >Pods you're subscribed to:{{pods.length}}  &emsp;&emsp;Monthly cost: ${{pods.price || 0}}/month</h4>
+            </div>
+            <div class="col-lg-4 pull-right" data-toggle="buttons">
+                <input class="search_bar" type="text" name="search" placeholder="Search your pods">
+            </div>
+        </div>
+        <div id="pan" class="add_hscroll medium_margin_top">
+        <div class="inline_style" mc-pod-subscribe="" ng-repeat="pod in podsC" on-subscribers="alert" on-more-info="alert">
+
+        </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-3">
+        <div class="user-info user-info-profile">
+            <div class="dashboard-element">
+                
+                <div class="user-info-header back_grey">
+                    <div class="back_white">
+                    <!-- <img ng-src="/userpics/$default.png" alt="" src="/userpics/$default.png"> -->
+                    <label class="btn-file ">
+                        <img ng-src="{{basicUserInfo.photos[0].value || '/userpics/$default.png'}}" alt=""/>
+                        <span class="edit avatar"></span>
+                        <input type="file" id="fileInput" name="avatar" style="display:none;" ngf-select="uploadFiles($file)" accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
+                    </label>
+                    <h2 class="upper_none">{{podInfo.pod_name}}</h2>
+                    <p class=" text-center" >{{podInfo.description || "NoDescription"}}</p>
+                    </div>
+                   <button class="btn-primary btn pull-left">Update Payment Info</button><br><br>
+                    
+                    
+                    <div class="user-info-elements">
+					<div id="at-a-glance" class="table-container">
+						<table class="table">
+							<tbody>
+							<tr>
+								
+								<td>
+									<span>Status:</span>
+									<span class="value">{{podInfo.status}}</span>
+								</td>
+                                <td>
+									<span>Created</span>
+									<span class="value">{{podInfo.created}}</span>
+								</td>
+							</tr>
+
+							<tr>
+
+								<td>
+									<span>Accuracy:</span>
+									<span class="value">{{podInfo.accuracy}}</span>
+								</td>
+
+								<td>
+									<span>Gained_percentage:</span>
+									<span class="value">{{podInfo.gained_percentage}}</span>
+								</td>
+                                
+							</tr>
+
+							<tr>
+								<td colspan="2">
+									<span>Historical sentiment:</span>
+									<span class="value">{{podInfo.sentiment||'NotDefined' }}</span>
+								</td>
+
+							</tr>
+
+							<tr>
+								<td>
+									<span>Pending forecasts:</span>
+									<span class="value">{{pforecasts.length || "0" }}</span>
+								</td>
+
+								<td>
+                                    <span>Validated forecasts:</span>
+									<span class="value">{{vforecasts.length || "0" }} </span>
+							</tr>	
+                            <tr>
+								<td>
+									<span>Sectors:</span>
+									<span class="value">Not Defined</span>
+								</td>
+
+								<td>
+                                    <span>Price:</span>
+									<span class="value">{{podInfo.price}}</span>
+							</tr>	
+                            <tr>
+								<td colspan="2">
+									<span>Pod Link:</span>
+									<span class="value">{{podInfo.pod_link}}</span>
+								</td>
+
+							</tbody>
+						</table>
+                        <button class="btn btn-default">End Subscription</button>
+					</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="dashboard-element microblogs">
+            <div class="create-microblog">
+                <h4>Messages from the curator</h4>
+            </div>
+            <div class="filter-microblogs vertical_padding top_border">
+                <div class="inner">
+                    <div class="row-regular">
+                        <div class="col-lg-8"></div>
+                        <div class="col-lg-4">
+                         </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="microblogs-elements-feed sub_footer_height">
+                <div mc-pod-cover-symbol="" ng-repeat="pod in pods" on-subscribers="alert" on-more-info="alert">
+
+                 </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5 dashboard-element microblogs">
+        <div class="microblogs-header"></div>
+        <div class="row">
+        <div class="btn-group col-lg-12">
+                <label class="btn btn-primary podlabelbtn  ng-pristine ng-untouched ng-valid active" ng-model="forecastStatus" uib-btn-radio="'pending'" ng-click="setPending()">
+                    <ul>
+                        <li class="img">
+                            <img ng-src="{{forecastStatus == 'pending' && 'assets/images/active.png' || 'assets/images/details.png' }}"/>
+                        </li>
+
+                        <li>
+                            Pending
+                        </li>
+                    </ul>
+
+                </label>
+
+
+                <label class="btn btn-primary podlabelbtn ng-pristine ng-untouched ng-valid" ng-model="forecastStatus" uib-btn-radio="'validated'" ng-click="setPending()">
+                    <ul>
+                        <li class="img">
+                            <img ng-src="{{forecastStatus == 'validated' && 'assets/images/active.png' || 'assets/images/details.png' }}"/>
+                        </li>
+
+                        <li>
+                            Validated
+                        </li>
+                    </ul>
+                </label>
+            </div>
+
+        </div>
+        
+        <div class="pods-elements sub_footer1_height smedium_margin_top">
+                <div mc-pod-cover-cast="" ng-repeat="pod in pods" on-subscribers="alert" on-more-info="alert">
+
+                </div>
+                
+            
+        </div>
+    </div>
+    </div>
+</div>

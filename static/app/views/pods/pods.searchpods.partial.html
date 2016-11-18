@@ -1,0 +1,44 @@
+<div class="row white_background">
+        <div class="row">
+            <div class="col-lg-12">
+                <b class="search_pods_caption">Sectors:</b>
+                <input type="text" class="search_pods_caption" name="" placeholder="Sectors (autocomplete)" >           
+                <b class="search_pods_caption">Users:</b>
+                <input type="text" class="search_pods_caption" name="" placeholder="Users (autocomplete)" >
+            </div>
+        </div>
+        <div class="align-right">
+            <button type="submit" class="btn btn-success search_pods_submit">Submit</button>
+        </div>
+        <div class="medium_margin_top">
+            <div class="col-lg-4">
+                <div class="pull-left">
+                <b class="search_pods_caption">Sort by:</b>
+                </div>
+                <div class="col-lg-4 dropdown large_margin_right">
+                    <button class="btn dropdown-toggle pods_dropdown" id="menu1" type="button" data-toggle="dropdown">accuracy
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">owner</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">accuracy</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">forecasts</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">subscribers</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">created</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">price</a></li>
+                    </ul>
+                </div><br>
+            </div>
+            <div class="col-lg-8" data-toggle="buttons">
+                <input class="search_bar  pull-right" type="text" name="search" placeholder="Search your pods">
+            </div>
+        </div>
+        <div class="col-lg-12 padding-right-0">
+            <div class="row pods-elements search_pane_height">
+                <div mc-pod-search="" ng-repeat="pod in pods" on-subscribers="alert" on-more-info="alert">
+
+                </div>
+            </div>
+        </div>
+</div>
+
+

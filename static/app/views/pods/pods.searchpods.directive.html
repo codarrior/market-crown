@@ -1,0 +1,48 @@
+<div class="col-lg-2">
+    <div class="element-wrapper">
+        <div class="element" ng-mouseenter="">
+            <div class="row body">
+                <div class="col-lg-12">
+                    <div class="user-info-container">
+                        <div class="thumb-container">
+                            <img class="search_pod_img" ng-src="{{pod.thumb_image || '/userpics/$default.png'}}" alt="">
+                        </div>
+
+                        <div class="user-name">
+                            <h5>
+                                <b>{{pod.pod_name}}MyPod</b>
+                            </h5>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-10 small_margin_left">
+                    <div class="details center">
+                        <ul >
+                            <li><b>owner:</b> {{ '' + pod.owner.toFixed(2) }}%</li>
+                            <li><b>accuracy:</b> {{ '' + pod.accuracy.toFixed(2) }}%</li>
+                            <li><b>forecasts:</b> {{ pod.forecasts }}</li>
+                            <li><b>subscribers:</b> {{ pod.subscribers }}</li>
+                            <li><b>created:</b> {{ pod.created }}</li>
+                            <li><b>price:</b> ${{ pod.price }}/month</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-12 center" ng-if="onMoreInfo">
+                    <button class="small_blue_btn btn-primary small_margin_bottom" onclick="onMoreInfo()">More info</button>
+                </div>
+                <div class="col-lg-12 center" ng-if="onMoreInfo">
+                    <button class="small_blue_btn btn-success small_margin_bottom" onclick="onMoreInfo()">Subscribe</button>
+                </div>
+
+         <!--       <div class="col-lg-12 center" ng-if="onSubscribers">
+                    <button class="btn btn-primary" onclick="onSubscribers()">Subscribers</button>
+                </div>  -->
+
+         <!--        <div class="col-lg-12 center" ng-if="onView">
+                    <button class="btn btn-primary" onclick="onView()">View</button>
+                </div>  -->
+            </div>
+        </div>
+    </div>
+</div>

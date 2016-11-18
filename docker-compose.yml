@@ -1,0 +1,41 @@
+app:
+  image: node:5.0.0
+  environment:
+    - PORT=3000
+    - NODE_ENV=development
+  ports:
+    - "3000:3000"
+  expose:
+    - "3000"
+  links:
+    - mongo
+    - tracer
+  volumes:
+    - .:/usr/src/app
+  working_dir: /usr/src/app
+  command: "node ./index.js "
+
+
+tracer:
+  image: node:5.0.0
+  environment:
+    - PORT=5000
+  ports:
+    - "5000:5000"
+  expose:
+    - "5000"
+  volumes:
+      - .:/usr/src/app
+  working_dir: /usr/src/app
+  command: "node ./tracer.js "
+
+
+mongo:
+  image: mongo:3.2.0
+  ports:
+    - "27017:27017"
+  expose:
+      - "27017"
+  volumes:
+    - ./mongo_db:/mongo_db
+

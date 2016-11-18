@@ -1,0 +1,240 @@
+<div ng-controller="PodsCtrl">
+<div class="row">
+    <div class="col-lg-4 dashboard-element create">
+        <form ng-submit="createPod()">
+        <div class="row">
+            <p>create income by creating a pod an attracting monthly subscribers</p>
+            <h3 class="small_margin_top">Create a new pod</h3>
+        </div>
+        <div class="row">
+            <div class="col-lg-8"><button class=" btn-primary pull-left small_blue_btn">Upload image</button></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">Name:</div>
+            <div class="col-lg-8"><input type="text" name="" placeholder="Pod name" class="form-control" ng-model="pod_name"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">Description:</div>
+            <div class="col-lg-8"><textarea class="form-control" placeholder="pod description" ng-model="description"></textarea></div>
+        </div>
+        <!--<div class="row">
+            <div class="col-lg-4">Market Cpas covered:</div>
+            <div class="col-lg-8"><input type="text" name="" placeholder="MarketCpas (autocomplete)" class="form-control"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">Percentages covered:</div>
+            <div class="col-lg-8"><input type="text" name="" placeholder="Percentages (autocomplete)" class="form-control"></div>
+        </div>-->
+        <div class="row">
+            <div class="col-lg-4">Monthly price:</div>
+            <div class="col-lg-4"><input type="text" name="" placeholder="price in dollars" class="form-control" ng-model="price">
+              <!--  <div class="row">
+                    <div class="col-lg-6">
+                        <select class="form-control">
+                            <option ng-repeat="price in prices" ng-value="price">{{price}}</option>
+                        </select>
+                    </div>
+                </div>   -->
+            </div>
+        </div>
+        
+        <div class="row">
+            <button type="submit" class="col-lg-4 btn btn-success pull-right small_margin_right">Submit</button>
+        </div>
+        </form>
+    </div>
+    <div class="col-lg-8 padding-right-0">
+        <div class="row pods-elements">
+            <div class="microblogs-header"></div>
+            <script>
+                
+            </script>
+            <div class="row">
+                <div class=" col-lg-4" data-toggle="buttons">
+                    <h4 >Your Pods:{{podsC.length}}</h4>
+                </div>
+                <div class="col-lg-4 pull-right" data-toggle="">
+                    <input class="search_bar" type="text" name="search" placeholder="Search your pods">
+                </div>
+            </div>
+
+                <div ng-repeat="pod in podsC" infinite-scroll="myPagingFunction()" infinite-scroll-distance="3">
+                    <div mc-pod-cover ng-click="selectPod(pod)">
+                    </div>
+                </div>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3">
+        <div class="user-info user-info-profile">
+            <div class="dashboard-element">
+                
+                <div class="user-info-header back_grey">
+                    <div class="back_white">
+                    <!-- <img ng-src="/userpics/$default.png" alt="" src="/userpics/$default.png"> -->
+                    <label class="btn-file ">
+                        <img ng-src="{{basicUserInfo.photos[0].value || '/userpics/$default.png'}}" alt=""/>
+                        <span class="edit avatar"></span>
+                        <input type="file" id="fileInput" name="avatar" style="display:none;" ngf-select="uploadFiles($file)" accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
+                    </label>
+                    <h2 class="upper_none">{{podInfo.pod_name}}</h2>
+                    <p class=" text-left" >{{podInfo.description || NoDescription}}</p>
+                    </div>
+                   
+                    
+                    
+                    <div class="user-info-elements">
+					<div id="at-a-glance" class="table-container">
+						<table class="table">
+							<tbody>
+							<tr>
+								
+								<td>
+									<span>Created:</span>
+									<span class="value">{{podInfo.created}}</span>
+								</td>
+                                <td>
+									<span>Accuracy</span>
+									<span class="value">{{podInfo.accuracy}}</span>
+								</td>
+							</tr>
+
+							<tr>
+
+								<td>
+									<span>Forecasts:</span>
+									<span class="value">{{podInfo.forecast_list.length}}</span>
+								</td>
+
+								<td>
+									<span>Subscribers:</span>
+									<span class="value">{{podInfo.subscriber_list.length}}</span>
+								</td>
+                                
+							</tr>
+
+							<tr>
+								<td>
+									<span>Price:</span>
+									<span class="value">${{podInfo.price}}/month</span>
+								</td>
+
+								<td>
+									<span>Gross estimate:</span>
+									<span class="value">${{podInfo.gross_estimate}}/month</span>
+								</td>
+
+							</tr>
+
+							<tr>
+								<td>
+									<span>Sectors:</span>
+									<span class="value">technology, healthcare</span>
+								</td>
+
+								<td>
+								<span>
+									Pod_link:
+								</span>
+
+								<span class="value">
+									{{podInfo.pod_link}}
+								</span>
+								</td>
+							</tr>	
+							</tbody>
+						</table>
+                        <button class="btn btn-default">Make Pod Inactive</button>
+					</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="dashboard-element microblogs">
+            <div class="microblogs-header">
+            </div>
+            <div class="create-microblog">
+                <form class="form-horizontal ng-pristine ng-invalid ng-invalid-required blur">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <textarea required="" class="form-control" ng-model="push_message" rows="1" id="textArea" placeholder="What's on your mind?"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="filter-microblogs">
+                <div class="inner">
+                    <div class="row-regular">
+                        <div class="col-lg-8"></div>
+                        <div class="col-lg-4">
+                            <button class="btn btn-success pull-right" ng-click="submitFilters(push_message)">Submit</button>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="microblogs-elements-feed card_footer_height">
+                <div ng-repeat="msgs in messages">
+                    <div mc-pod-cover-symbol ng-click="showmessage(msgs)">
+                    </div>
+                 </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5 dashboard-element microblogs">
+        <div class="microblogs-header"></div>
+        <div class="row">
+        <div class=" col-lg-12" data-toggle="buttons">
+			<div class="btn-group col-lg-12">
+                <label class="btn btn-primary podlabelbtn  ng-pristine ng-untouched ng-valid active" ng-model="forecastStatus" uib-btn-radio="'pending'" ng-click="setPending()">
+                    <ul>
+                        <li class="img">
+                            <img ng-src="{{forecastStatus == 'pending' && 'assets/images/active.png' || 'assets/images/details.png' }}"/>
+                        </li>
+
+                        <li>
+                            Pending
+                        </li>
+                    </ul>
+
+                </label>
+
+
+                <label class="btn btn-primary podlabelbtn ng-pristine ng-untouched ng-valid" ng-model="forecastStatus" uib-btn-radio="'validated'" ng-click="setPending()">
+                    <ul>
+                        <li class="img">
+                            <img ng-src="{{forecastStatus == 'validated' && 'assets/images/active.png' || 'assets/images/details.png' }}"/>
+                        </li>
+
+                        <li>
+                            Validated
+                        </li>
+                    </ul>
+                </label>
+            </div>
+			<!--<label class="btn btn-success active col-lg-6">
+				<input type="radio" name="options" id="option2" autocomplete="off" chacked>
+				<span class="">Pending Forecasts</span>
+			</label>
+
+			<label class="btn btn-primary col-lg-6">
+				<input type="radio" name="options" id="option1" autocomplete="off">
+				<span class="">Validated Forecasts</span>
+			</label>-->
+		</div>
+        </div>
+        
+        <div class="pods-elements card_footer1_height">
+                <div mc-pod-cover-cast="" ng-repeat="pod in pendingData" on-subscribers="alert" on-more-info="alert">
+
+                </div>      
+        </div>
+    </div>
+</div>
+</div>

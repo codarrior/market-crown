@@ -1,0 +1,84 @@
+<div class="col-lg-12 pods-page" ng-controller="PodsCtrl">
+	<div class="row">
+		<div class="col-lg-12 headline white_background">
+			<div class="customization">
+				<div class="row">
+					<div class="col-lg-12 no-padding">
+						<div class="title">
+							<h1>
+								Pods
+							</h1>
+						</div>
+					</div>
+				</div>
+
+				<div class="master-customization">
+					<div class="row">
+						<div class="col-lg-4 market">
+							<h4>Market</h4>
+							<div class="market-selection selection">
+								<ui-select ng-model="podMarket.selected" theme="bootstrap" ng-disabled="disabled" on-select="changeMarket()">
+									<ui-select-match placeholder="Market selection..."><img ng-src="assets/images/flags/{{$select.selected.flag}}" alt=""/> {{$select.selected.name}}</ui-select-match>
+
+									<ui-select-choices repeat="market in podMarkets | filter: $select.search">
+										<img ng-src="assets/images/flags/{{market.flag}}" alt=""/>{{market.name}}
+									</ui-select-choices>
+								</ui-select>
+							</div>
+						</div>
+						<div class="col-lg-8 submit">
+						</div>
+					</div>
+					<div class="row tabs">
+						<div class="col-lg-12">
+							<ul class="nav nav-tabs">
+								<li class="active"><a href="#mypods" data-toggle="tab" aria-expanded="true" target="_self">My Pods</a></li>
+								<li class=""><a href="#searchpods" data-toggle="tab" aria-expanded="false" target="_self" ng-click="getSimpleForecasts('pending')">Search Pods</a></li>
+								<li class=""><a href="#mysubscription" data-toggle="tab" aria-expanded="false" target="_self">My Subscriptions</a></li>
+								<li class=""><a href="#myinfo" data-toggle="tab" aria-expanded="false" target="_self">My Info</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="pods-content" class="tab-content">
+				<div class="tab-pane fade active in" id="mypods" ng-include="'views/pods/pods.mypods.partial.html'">
+				</div>
+				<div class="tab-pane fade" id="searchpods" ng-include="'views/pods/pods.searchpods.partial.html'">
+					Search Pods
+				</div>
+				<div class="tab-pane fade" id="mysubscription" ng-include="'views/pods/pods.mysubscriptions.partial.html'">
+					My Subscription
+				</div>
+				<div class="tab-pane fade" id="myinfo">
+					<div class="col-lg-3">
+						<div class="user-info user-info-profile">
+							<div class="dashboard-element">
+								<div class="user-info-header text-left">
+									<img ng-src="/userpics/$default.png" alt="" src="/userpics/$default.png">
+									<h2 class="ng-binding">my_name</h2>
+									<b class="myinfo_pods_caption">Total created pods: 6</b><br>
+									<b class="myinfo_pods_caption">Total subscribers: 90 <button class="btn-primary small_blue_btn">view</button></b><br>
+									<b class="myinfo_pods_caption">Estimated monthly payout: $985</b>
+									<div class="btn-container">
+										<button class="btn btn-primary myinfo_button_width">
+											Update Personal Info
+										</button>
+										<img class="noborder" src="/userpics/lock.jpg">
+									</div>
+									<div class="btn-container">
+										<button class="btn btn-primary myinfo_button_width">
+											Update Payout Info
+										</button>
+										<img class="noborder" src="/userpics/lock.jpg">
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

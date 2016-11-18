@@ -1,0 +1,228 @@
+/* Login SignUp*/
+input{
+	color:@base-textwhite;
+}
+.mc-login {
+
+	display: none;
+	background-color: rgba(39, 50, 56, 0.9);
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 10;
+	width: 100%;
+	height: 600%;
+	opacity: 1;
+	z-index: 999;
+
+
+
+}
+
+.mc-login {
+
+	  display: none;
+	background-color: rgba(39, 50, 56, 0.9);
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 10;
+	width: 100%;
+	height: 600%;
+	opacity: 1;
+	z-index: 999;
+
+	
+
+}
+.mc-smlogin{
+	.mc-loginbtn;
+	margin-top:0px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+h2{
+	color:@btn-lightgreen;
+	display:inline;
+}
+p{
+
+	font-size: .7em;
+	color:@base-textwhite;
+	display:inline;
+}
+a{
+	text-align: center;
+	display:block;
+	margin:10px auto;
+}
+.mc-grpicons {
+	text-align: center;
+	margin-top:30px;
+	a{
+		display: inline;
+	}
+}
+
+.mc-smicons {
+	width: 160px;
+	height: 50px;
+	margin: 5px;
+}
+.mc-member{
+	display:inline;
+	margin-left: 60px;
+	margin-top:-10px;
+}
+#mc-member{
+	margin-left: 90px;
+}
+h4 {
+	text-align: center;
+	color:@base-textwhite;
+}
+.mc-optui {
+	margin-top: 80px;
+
+	form {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		width: 400px;
+		padding: 10px;
+		background-color: @base-darkblue;
+		border: 1px solid lighten(@base-darkblue,5%);
+		border-top: 3px solid @base-darkgreen;
+	}
+}
+
+.mc-back{
+	display: block;
+	margin:20px auto;
+	text-align:center;
+	p{
+		color:@base-darkgreen;
+	text-decoration: none;
+	cursor: pointer;
+
+	&:hover{
+		border-bottom:1px solid @base-darkgreen;
+	}
+
+	}
+	
+}
+
+#form-username{
+	background: url(../images/userbg.png) no-repeat scroll !important;
+}
+#form-password{
+	background: url(../images/pwbg.png) no-repeat scroll !important;
+}
+#form-email{
+	background: url(../images/emailbg.png) no-repeat scroll !important;
+}
+input {
+
+	height: 42px;
+	width: 80%;
+	padding-left: 40px;
+	margin: 10px auto;
+	border:1px solid lighten(@base-darkblue,10%);
+	color: 1px solid lighten(@base-darkblue,10%);;
+	
+}
+input[type=text]:focus{
+		border:2px solid lighten(@base-darkblue,10%);
+	}
+
+.mc-submit{
+	.mc-loginbtn;
+	font-size: 1.5em;
+	display:block;
+	width:40%;
+	height:40px;
+	margin:10px auto;
+}
+
+.mc-signup{
+	.mc-login;
+}
+
+
+
+@media screen and (min-width:360px){
+
+	.mc-member{
+		margin-left: 25px;
+		p{
+			font-size: .7em
+		}
+	}
+	#mc-member{
+		margin-left: 25px;
+		p{
+			font-size: .7em
+		}
+	}
+
+	.mc-optui {
+	margin-top: 50px;
+	
+	form {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		width: 320px;
+		padding: 10px;
+		background-color: @base-darkblue;
+		border: 1px solid lighten(@base-darkblue,5%);
+		border-top: 3px solid @base-darkgreen;
+
+	}
+
+	.mc-smlogin, .mc-smsignup{
+		margin-top: 10px;
+		margin-left: 0px;
+		width:55px;
+		height:20px;
+		font-size: .7em;
+
+	}
+
+
+}
+}
+@media screen and (min-width:768px){
+
+	.mc-member{
+		margin-left: 100px !important;
+		p{
+			font-size: .7em
+		}
+	}
+	#mc-member{
+		margin-left: 100px !important;
+		p{
+			font-size: .7em
+		}
+	}
+
+	.mc-optui {
+	margin-top: 50px;
+	
+	form {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		width: 400px;
+		padding: 10px;
+		background-color: @base-darkblue;
+		border: 1px solid lighten(@base-darkblue,5%);
+		border-top: 3px solid @base-darkgreen;
+
+	}
+}
+
+}

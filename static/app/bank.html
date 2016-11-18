@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="assets/styles/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script type="text/javascript" src="lib/js/jquery.js"></script>
+    <script type="text/javascript" src="lib/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<div style="padding: 20px;">
+    Banks
+    <form id="inst-form">
+
+        <div class="form-row">
+            <label>
+                <span>Bank Location</span>
+                <select data-stripe="country" class="country">
+                    <option value="US">United States</option>
+                </select>
+            </label>
+        </div>
+
+        <div class="form-row">
+            <label>
+                <span>Currency</span>
+                <select data-stripe="currency" class="currency">
+                    <option value="USD">U.S. Dollars</option>
+                </select>
+            </label>
+        </div>
+
+        <div class="form-row">
+            <label>
+                <span>Routing Number</span>
+                <input type="text" size="9" data-stripe="routing-number" class="routing-number"/>
+            </label>
+        </div>
+
+
+        <div class="form-row">
+            <label>
+                <span>Account Number</span>
+                <input type="text" size="17" data-stripe="account-number" class="account-number"/>
+            </label>
+        </div>
+
+        <div class="form-row">
+            <label>
+                <span>Account Holder Name</span>
+                <input type="text"  data-stripe="name" class="name"/>
+            </label>
+        </div>
+
+
+        <div class="form-row">
+            <label>
+                <span>Account holder type</span>
+                <select data-stripe="account_holder_type" class="account_holder_type">
+                    <option value="individual">individual</option>
+                    <option value="company">companys</option>
+                </select>
+            </label>
+        </div>
+
+        <button type="submit">Make Recipient!</button>
+    </form>
+    <!--<button class="btn btn-default" on-click="doBanks()">QWE</button>-->
+</div>
+
+<script type="text/javascript">
+        Stripe.setPublishableKey('pk_test_9A2D4S5sU8JlTiAnvrEYsV4G');
+
+        $('#inst-form').submit(function(event) {
+            doBanks()
+            return false;
+        });
+
+    function doBanks(){
+        console.log('Request to stripe sent');
+        Stripe.bankAccount.createToken({
+            country: $('.country').val(),
+            currency: $('.currency').val(),
+            routing_number: $('.routing-number').val(),
+            account_number: $('.account-number').val(),
+            account_holder_name: $('.name').val(),
+            account_holder_type: $('.account_holder_type').val()
+        }, function(status, response) {
+            console.log('Answer:',status,response)
+            if (response.error)
+            {
+                console.error(response);
+            }
+            else
+            {
+                var token = response.id;
+                sendTokenToServer(token);
+            }
+        });
+    }
+
+    function sendTokenToServer(token){
+        $.ajax({
+            url: '/api/v1/personal/stripe/bank/form',
+            type: 'POST',
+            processData:false,
+            data: JSON.stringify({token:token}),
+            success: function (a) {
+                console.log('Token submitted to server.',a);
+            },
+            error:function (a) {
+                console.error('Token not submitted.',a);
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+.small_margin_top{
+  margin-top:2px;
+}
+
+.smedium_margin_top{
+    margin-top:10px;
+}
+
+.medium_margin_top{
+    margin-top:30px;
+}
+.large_margin_top{
+    margin-top:40px;
+}
+
+.no_margin{
+    margin:0px;
+}
+.small_margin_bottom{
+  margin-bottom:5px;
+}
+
+.small_margin_right{
+  margin-right:15px;
+}
+
+.medium_margin_right{
+  margin-right:30px;
+}
+
+.large_margin_right{
+  margin-right:60px;
+}
+
+.horizon_padding{
+    padding:0px 10px;
+}
+
+.top_border{
+    border-top: solid 3px lightgray;
+}
+.vertical_padding{
+    padding:10px 0px;
+}
+.small_margin_left{
+  margin-left:30px;
+}
+
+.small_blue_btn{
+  border-radius:5px;
+  font-size:10px;
+}
+
+.small_gray_btn{
+  margin-bottom: 0;
+  text-align: center;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  line-height: 1.846;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-radius:3px;
+  background-color: gray;
+  font-size:10px;
+}
+
+input[type=text].search_bar {
+    width: 250px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 50px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('/userpics/as.png');
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 10px 20px 10px 50px;
+}
+
+input[type=text].search_pods_caption{
+    font-size:16px;
+    width:200px;
+    padding-left:5px;
+    margin-left: 2px;
+    border: 1px solid;
+}
+
+.search_pods_caption{
+    font-size:16px;   
+    margin-left:20px;
+}
+
+.myinfo_pods_caption{
+    font-size:16px;   
+}
+
+.add_scroll{
+    height: 465px; 
+    overflow-y: scroll;
+}
+
+.inline_style{
+    width:16%;
+    display: inline-block;
+}
+#pan.add_hscroll{
+    white-space: nowrap;
+    overflow: auto;
+}
+
+.white_background{
+    background-color:white;
+}
+
+.search_pods_submit{
+    font-size: 16px;
+    padding:0px, 30px;
+    margin-top:10px;
+    margin-right:30px;
+}
+
+.align-right{
+    text-align: right;
+}
+
+.align-justify{
+    text-align: justify;
+}
+
+.pods_dropdown{
+    background-color: white;
+    border: 1px solid;
+    border-radius: 7px;
+}
+
+.search_pod_img{
+    width: 8em;
+    -webkit-border-radius: 100px;
+    border-radius: 100px;
+    background-clip: padding-box;
+    border: 3px solid #41b450;
+    height: 8em;
+    max-width: 100%;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.myinfo_button_width{
+    width:200px; 
+}
+
+.card_footer_height{
+    height:520px;
+    overflow-y:scroll;
+}
+
+.card_footer1_height{
+    height:600px;
+    overflow-y:scroll;
+}
+
+.search_pane_height{
+    height:1028px;
+}
+
+.sub_footer_height{
+    height:490px;
+    overflow-y:scroll;
+}
+
+.sub_footer1_height{
+    height:530px;
+    overflow-y:scroll;
+}
+
+#dashboard .dashboard-content-wrapper .user-info .text-left{
+    text-align: left;
+}
+
+#dashboard .dashboard-content-wrapper .user-info .user-info-header .noborder{
+    border: none;
+    width:30px;
+    height: 30px;
+}
+
+.podlabelbtn {
+    background-color: #263238;
+    color: #d4d0d0;
+    display: block;
+    padding: 1.02em 1.2em;
+    width: 50%;
+    border: none;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    background-clip: padding-box;
+    /* stops bg color from leaking outside the border: */
+    box-shadow: none; 
+}
+.podlabelbtn ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0; }
+    .podlabelbtn ul li {
+        display: inline-block; }
+        .podlabelbtn ul li.img {
+        width: 13%; }
+        .podlabelbtn ul li.img img {
+            width: 1.1em;
+            margin-top: -.3em; }
+    .podlabelbtn:hover {
+    background-color: #516a72;
+    text-decoration: none; }
+    .podlabelbtn.active {
+    background-color: #39464D;
+    color: #f7f7f7; }
+    .podlabelbtn img {
+    width: 1.5em;
+    margin-right: .5em; }
+
+.back_grey{
+    background-color:#ebebeb;
+}
+
+.back_white{
+    background-color: white;
+    padding-top:10px;
+}

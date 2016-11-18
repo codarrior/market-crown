@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <title>MarketCrown</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <!-- Custom Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="css/animate.min.css" type="text/css">
+    <link href="css/main.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="css/pods.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class = "mc-signup">
+      <div class = "container">
+        <div class = "mc-optui">
+          <form>
+            <h2 class = "mc-opttitle ">SIGN UP</h2>
+            <div class = "mc-member">
+              <span><p>Already a member?</p></span>
+            <span><a href = "#" class = "btn mc-smlogin">LOG IN</a></span>
+          </div>
+          <div class = "mc-grpicons">
+            <a class="" href="/api/v1/auth/facebook"><img class = "mc-smicons" src = "images/mc-fb.png"></a>
+            <a class="" href="/api/v1/auth/twitter"><img class = "mc-smicons" src = "images/mc-twitter.png"></a>
+            <a class="" href="/api/v1/auth/google"><img class = "mc-smicons" src = "images/mc-gplus.png"></a>
+            <!--<a href="api/v1/auth/logout">logout</a>-->
+          </div>
+          <!--<h4>or</h4>-->
+          <!--<div class = "input-envelope">-->
+            <!--<span><img src = "images/user.png" ></span>-->
+            <!--<input type="text" id="form-username" name="user_name" placeholder = "Username">-->
+          <!--</div>-->
+          <!--<div class = "input-envelope">-->
+            <!--<span><img src = "images/pwicon.png" ></span>-->
+            <!--<input type="text" id="form-email" name="password" placeholder = "Email Address">-->
+          <!--</div>-->
+          <!--<div class = "input-envelope">-->
+            <!--<span><img src = "images/pwicon.png" ></span>-->
+            <!--<input type="password" id="form-password" name="password" placeholder = "Password">-->
+          <!--</div>-->
+          <!--<div class = "input-envelope">-->
+            <!--<span><img src = "images/pwicon.png" ></span>-->
+            <!--<input type="password" id="form-password" name="password" placeholder = "Password">-->
+          <!--</div>-->
+          
+          <span class = "mc-back"><p>BACK</p></span>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- /mc-signup -->
+  <div class = "mc-login">
+    <div class = "container">
+      <div class = "mc-optui">
+        <form>
+          <h2 class = "mc-opttitle ">LOGIN</h2>
+          <div class = "mc-member" id="mc-member"><span><p>Not yet a member?</p></span>
+          <span><a href = "#" class = "btn mc-smsignup">SIGN-UP</a></span>
+        </div>
+        <div class = "mc-grpicons">
+          <a class="" href="/api/v1/auth/facebook"><img class = "mc-smicons" src = "images/mc-fb.png"></a>
+          <a class="" href="/api/v1/auth/twitter"><img class = "mc-smicons" src = "images/mc-twitter.png"></a>
+          <a class="" href="/api/v1/auth/google"><img class = "mc-smicons" src = "images/mc-gplus.png"></a>
+        </div>
+        <!--<h4>or</h4>-->
+        <!--<div class = "input-envelope">-->
+          <!--<span><img src = "images/user.png" ></span>-->
+          <!--<input type="text" id="form-username" name="user_name" placeholder = "Username">-->
+        <!--</div>-->
+        <!--<div class = "input-envelope">-->
+          <!--<span><img src = "images/pwicon.png" ></span>-->
+          <!--<input type="password" id="form-password" name="password" placeholder = "Password">-->
+        <!--</div>-->
+        <span class = "mc-back"><p>BACK</p></span>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- /mc-login -->
+<nav  class="navbar navbar-default ">
+  <div class="container-fluid">
+    <!-- Logo and Menu-->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mc-navbar">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      </button>
+      <a href ="#" class = "btn mc-loginbtn mc-btnshow">LOG IN</a>
+      <a class="navbar-brand page-scroll" id="mc-logo" href="#page-top"></a>
+    </div>
+    <!-- Toggle -->
+    <div class="collapse navbar-collapse mc-menu" id="mc-navbar">
+      <ul class="nav navbar-nav">
+        <li>
+          <a class="nav-links" href="#trendingforecasts">TRENDING FORECASTS</a>
+        </li>
+        <li>
+          <a class="nav-links" href="#topusers">TOP USERS</a>
+        </li>
+        <li>
+          <a class="nav-links" href="#faq"> FAQ</a>
+        </li>
+      </ul>
+      <a href ="#" class = "btn mc-loginbtn mc-btnhide">LOG IN</a>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container-fluid -->
+</nav>
+<!-- /nav .navbar -->
+<div class = "mc-home">
+  <div class = "mc-hero">
+    <div class = "container">
+      <div class = "mc-circle row">
+        <div class="mc-circle-content ">
+          <h1>BOOST</h1>
+          <h1>YOUR EARNINGS </h1>
+          <h1 id = "with">WITH </h1>
+          <!--  <h2>BOOST YOUR EARNINGS WITH </h2> -->
+          <span id="market">MARKET</span><span id = "crown">CROWN</span>
+          <p>Our platform makes it super easy for market enthusiasts to test,  hone and monetize their ability to forecast stock movement in several global markets.</p>
+          <a href ="#" class = "btn  mc-signupbtn">SIGN UP</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /mc-hero -->
+  <section class = "mc-whyuse">
+    <div class= "container">
+      <h1>WHY USE MARKETCROWN</h1>
+      <h2>A Global Stock Movement Social Platform</h2>
+      <div class = "mc-colcontent row">
+        <div class = "col-md-3">
+          <img src = "images/icon1.png">
+          <h3>Forecast stock movement in multiple markets (NYSE, Nasdaq, Toronto Stock Exchange and HKSE)</h3>
+          <a href = "#learnmore1" class = "btn-learnmore mc-btnlm1">LEARN MORE</a>
+        </div>
+        <div class = "col-md-3">
+          <img src = "images/icon2.png">
+          <h3>Gain monthly income from your ability to see stock trends by creating a Forecast Pod</h3>
+          <a href = "#learnmore2" class = "btn-learnmore mc-btnlm2">LEARN MORE</a>
+        </div>
+        <div class = "col-md-3">
+          <img src = "images/icon3.png">
+          <h3>Converse and connect with users about your thoughts and market trends</h3>
+          <a href = "#learnmore3" class = "btn-learnmore mc-btnlm3">LEARN MORE</a>
+        </div>
+        <div class = "col-md-3">
+          <img src = "images/icon4.png">
+          <h3>Dissect user performance and preference under many scenarios with our stats engine.</h3>
+          <a href = "#learnmore4" class = "btn-learnmore mc-btnlm4">LEARN MORE</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /section whyuse -->
+  <section class = "mc-sectionbottom">
+    <div class = "container">
+      <h3>“Forecast, Improve, Monetize, Globally”</h3>
+      
+    </div>
+  </section>
+  <!-- /section-bottom -->
+</div>
+<!-- /mc-home -->
+<div class = "mc-learnmore1" id = "learnmore1">
+  <div class = "container">
+    <div class = "mc-lmtitle ">
+      <img class = "" src = "images/icon1.png" alt = "icon">
+      <h3 class = "">Forecast stock movement in multiple markets
+      (NYSE, Nasdaq, Toronto Stock Exchange and HKSE)</h3>
+    </div>
+    
+    <div class = "mc-workslabel">
+      <img id = "mc-works" src = "images/works.png" alt = "mc-works">
+      <h5>Here is How it Works:</h5>
+    </div>
+    <img class = "" src = "images/mc-lm101.png" alt = "learnmore">
+    <h6 class = "">Users have the ability to forecast any of the 4 four global stock markets. </h6>
+    <img class = "mc-arrows" src = "images/arrow.png" alt = "learnmore">
+    <img class = "" src = "images/mc-lm102.png" alt = "learnmore">
+    <h6 class = "">Forecasting involves a user stating a stocks position at a future date relative to where it is now. </h6>
+    <img class = "mc-arrows" src = "images/arrow.png" alt = "learnmore">
+    <img class = "" src = "images/mc-lm103.png" alt = "learnmore">
+    <h6 class = "">Creating a forecast consists of entering a stock symbol(i.e. $AMZN), selecting direction (up/down), percentage movement <strong>(.2-.9%, 1-5%, 6-15%, 16-30%, 31+%)</strong>, time of day(morning/midday/close) and date.</h6>
+    <img class = "mc-arrows" src = "images/arrow.png" alt = "learnmore">
+    <img class = "" src = "images/mc-lm12.png" alt = "learnmore">
+    <h6>For example, On <strong>01/12/16 $STOCK</strong> was at <strong>$56/share</strong></h6>
+    <img class = "mc-arrows" src = "images/arrow.png" alt = "learnmore">
+    <img class = "" src = "images/mc-lm11.png" alt = "learnmore">
+    <h6>On <strong>01/12/16</strong> Mike forecasts that <strong>$STOCK</strong> will be up 1-5% from its current price of <strong>$56/share</strong> during Midday on <strong>01/17/16</strong></h6>
+    <img class = "mc-arrows" src = "images/arrow.png" alt = "learnmore">
+    <img class = "" src = "images/mc-lm13.png" alt = "learnmore">
+    <h6>The platform validates the forecast during the midday time frame on <strong>01/17/16 </strong> to determine if the forecast is true.</h6>
+    <span class = "mc-back"><p>BACK</p></span>
+  </div>
+</div>
+<!-- /mc-learnmore1 -->
+<div class = "mc-learnmore2" id = "learnmore2">
+  <div class = "container">
+    <div class = "mc-lmtitle ">
+      <img class = "" src = "images/icon2.png" alt = "icon">
+      <h3 class = "">Gain monthly income from your ability to see stock trends by creating a Forecast Pod</h3>
+    </div>
+    <div class = "mc-workslabel">
+      <img id = "mc-works" src = "images/works.png" alt = "mc-works">
+      <h5>Here is How it Works:</h5>
+    </div>
+    <img class = "" src = "images/mc-lm21.png" alt = "learnmore">
+    <h6>User creates a <strong>Pod</strong> based on a <strong>World Market</strong></h6>
+    <img class = "mc-arrows" src = "images/arrow.png" alt = "learnmore">
+    <img class = "" src = "images/mc-lm22.png" alt = "learnmore">
+    <h6>User selects market caps and sectors covered by the <strong>Pod</strong></h6>
+    <img class = "mc-arrows" src = "images/arrow.png" alt = "learnmore">
+    <img class = "" src = "images/mc-lm23.png" alt = "learnmore">
+    <h6>User sets a monthly subscription price</h6>
+    <img class = "mc-arrows" src = "images/arrow.png" alt = "learnmore">
+    <img class = "" src = "images/mc-lm24.png" alt = "learnmore">
+    <h6><strong>Pods</strong> attract paying subscribers based on your accuracy and consistency </h6>
+    <img class = "mc-arrows" src = "images/arrow.png" alt = "learnmore">
+    <img class = "" src = "images/mc-lm25.png" alt = "learnmore">
+    <h6>Only subscribers have access to see your pod based forecasts and get email notification of new forecasts </h6>
+    <img class = "mc-arrows" src = "images/arrow.png" alt = "learnmore">
+    <img class = "" src = "images/mc-lm26.png" alt = "learnmore">
+    <h6>Pod creators keep 70% of subscription revenue</h6>
+    <span class = "mc-back"><p>BACK</p></span>
+  </div>
+</div>
+<!-- /mc-learnmore 2 -->
+<div class = "mc-learnmore3" id = "learnmore3">
+  <div class = "container">
+    <div class = "mc-lmtitle ">
+      <img class = "" src = "images/icon3.png" alt = "icon">
+      <h3 class = "">Converse and connect with users about your thoughts and market trends</h3>
+    </div>
+    <img class = "" src = "images/mc-lm31.png" alt = "learnmore">
+    <h6>Our micro blog makes to really simple to converse with other members on stock market happenings as well as keep up with the latest chatter on any sector or individual stock. </h6>
+    <img class = "" src = "images/mc-lm32.png" alt = "learnmore">
+    <h6>Users have the ability to filter messages based on stocks, sectors or users they follow</h6>
+    
+    <span class = "mc-back"><p>BACK</p></span>
+  </div>
+</div>
+<!-- /mc-learnmore3-->
+<div class = "mc-learnmore4" id = "learnmore4">
+  <div class = "container">
+    
+    <div class = "mc-lmtitle ">
+      <img class = "" src = "images/icon4.png" alt = "icon">
+      <h3 class = "">Dissect user performance and preference under many scenarios with our stats engine.</h3>
+    </div>
+    <img class = "" src = "images/mc-lm4.png" alt = "learnmore">
+    <h6>Our query and stats engine allows you to dissect user performance and preference at multiple levels. You will have the ability to determine how accurate any user is along with their tendencies under many scenarios
+    (market cap, sector, individual stocks, percentage movement,latency, etc) for any particular date range.</h6>
+    <span class = "mc-back"><p>BACK</p></span>
+  </div>
+</div>
+<!-- /mc-lmtitle4 -->
+<footer class= "mc-footer">
+  <div class = "mc-footer-content container row">
+    <div class = "mc-socialicons col-md-4">
+      <a href = "#"><img src = "images/fb.png" alt = "facebook"></a>
+      <a href = "#"><img src = "images/twitter.png" alt = "twitter"></a>
+      <a href = "#"><img src = "images/gplus.png" alt = "gplus"></a>
+    </div>
+    <div class = "col-md-4">
+      <a href = "#">Privacy & Terms</a>
+      <a href = "#">FAQ</a>
+    </div>
+    <div class = "mc-footertextcol-md-4">
+      <a href = "#">All Rights Reserved MarketCrown 2016</a>
+    </div>
+  </div>
+</footer>
+<!-- /footer -->
+<!--  Scripts-->
+<!-- jQuery -->
+<script src="js/jquery.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Functions jQuery Script -->
+<script src = "js/functions.js"></script>
+</body>
+</html>

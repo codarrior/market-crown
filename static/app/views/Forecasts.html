@@ -1,0 +1,374 @@
+<div class="col-lg-9 forecasts-page" ng-controller="ForecastsCtrl">
+	<div class="row">
+		<div class="col-lg-12 headline">
+			<div class="customization">
+
+				<div class="row">
+					<div class="col-lg-12 no-padding">
+						<div class="title">
+							<h1>
+								Forecasts
+							</h1>
+						</div>
+					</div>
+				</div>
+
+				<div class="master-customization">
+					<div class="row">
+						<div class="col-lg-4 status">
+							<h4>Status</h4>
+							<div class="btn-group">
+								<label class="btn btn-primary" ng-model="forecastStatus" uib-btn-radio="'pending'">
+									<ul>
+										<li class="img">
+											<img ng-src="{{forecastStatus == 'pending' && 'assets/images/active.png' || 'assets/images/details.png'}}"/>
+										</li>
+
+										<li>
+											Pending
+										</li>
+									</ul>
+
+								</label>
+								<label class="btn btn-primary" ng-model="forecastStatus" uib-btn-radio="'validated'">
+									<ul>
+										<li class="img">
+											<img ng-src="{{forecastStatus == 'validated' && 'assets/images/active.png' || 'assets/images/details.png' }}"/>
+										</li>
+
+										<li>
+											Validated
+										</li>
+									</ul>
+								</label>
+							</div>
+						</div>
+
+						<div class="col-lg-2 market">
+							<h4>Market</h4>
+							<div class="market-selection selection">
+								<ui-select ng-model="forecastMarket.selected" theme="bootstrap" ng-disabled="disabled" on-select="changeMarket()">
+									<ui-select-match placeholder="Market selection..."><img ng-src="assets/images/flags/{{$select.selected.flag}}" alt=""/> {{$select.selected.name}}</ui-select-match>
+
+									<ui-select-choices repeat="market in forecastMarkets | filter: $select.search">
+										<img ng-src="assets/images/flags/{{market.flag}}" alt=""/>{{market.name}}
+									</ui-select-choices>
+								</ui-select>
+							</div>
+						</div>
+
+						<div class="col-lg-3 forecast-source">
+							<h4>Show forecasts from:</h4>
+							<div class="forecasts-from selection">
+								<ui-select ng-model="forecastUserResult.selected" theme="bootstrap" ng-disabled="disabled" on-select="onSelect()">
+									<ui-select-match placeholder="Forecast results..."> {{$select.selected.name}}</ui-select-match>
+
+									<ui-select-choices repeat="forecastUserResult in forecastUserResults | filter: $select.search">
+										{{forecastUserResult.name}}
+									</ui-select-choices>
+								</ui-select>
+							</div>
+						</div>
+
+						<div class="col-lg-3 submit">
+							<div class="btn-container">
+								<button class="btn submit" ng-click="getUpdatedForecasts()">Submit</button>
+							</div>
+						</div>
+
+						<div class="col-lg-3 col-lg-offset-7 showgroups" ng-show="showGroups">
+							<div class="forecasts-from selection">
+								<ui-select ng-model="forecastUserGroupResult.selected" theme="bootstrap" ng-disabled="disabled" on-select="getSelectedGroup()">
+									<ui-select-match placeholder="Forecast results..."> {{$select.selected.name}}</ui-select-match>
+
+									<ui-select-choices repeat="forecastUserGroupResult in forecastUserGroupsResults | filter: $select.search">
+										{{forecastUserGroupResult.name}}
+									</ui-select-choices>
+								</ui-select>
+							</div>
+						</div>
+					</div>
+
+					<div class="custom" ng-show="showCustom">
+						<div class="row">
+							<div class="col-lg-3 users">
+								<h4>Users</h4>
+
+								<ui-select multiple ng-model="multiselect.users" theme="bootstrap">
+									<ui-select-match placeholder="All...">{{$item}}</ui-select-match>
+									<ui-select-choices repeat="user in users | filter:$select.search | limitTo: 10" position="down">
+										{{user}}
+									</ui-select-choices>
+								</ui-select>
+
+							</div>
+
+							<div class="col-lg-2 symbols">
+								<h4>Symbols</h4>
+
+
+								<ui-select multiple ng-model="multiselect.symbols" theme="bootstrap" ng-disabled="disabled">
+
+									<ui-select-choices repeat="symbol.symbol as symbol in symbols | filter:$select.search | limitTo: 8" position="down">
+										<div ng-bind-html="symbol.symbol | highlight: $select.search"></div>
+										{{symbol.name}}
+									</ui-select-choices>
+									<ui-select-match placeholder="All...">{{$item.symbol}}</ui-select-match>
+								</ui-select>
+
+							</div>
+
+							<div class="col-lg-3 sectors">
+								<h4>Sectors</h4>
+								<ui-select multiple ng-model="multiselect.sectors" theme="bootstrap" ng-disabled="disabled">
+									<ui-select-match placeholder="All...">{{$item}}</ui-select-match>
+									<ui-select-choices repeat="sector in sectors | filter:$select.search">
+										{{sector}}
+									</ui-select-choices>
+								</ui-select>
+
+							</div>
+
+
+							<div class="col-lg-2 marketcaps">
+								<h4>Market Capitalization</h4>
+								<ui-select multiple ng-model="multiselect.marketCaps" theme="bootstrap" ng-disabled="disabled">
+									<ui-select-match placeholder="All...">{{$item}}</ui-select-match>
+									<ui-select-choices repeat="marketCap in marketCaps | filter:$select.search">
+										{{marketCap}}
+									</ui-select-choices>
+								</ui-select>
+							</div>
+
+							<div class="col-lg-2 movements">
+								<h4>Movement</h4>
+								<ui-select multiple ng-model="multiselect.movements" theme="bootstrap" ng-disabled="disabled">
+									<ui-select-match placeholder="All...">{{$item}}</ui-select-match>
+									<ui-select-choices repeat="movement in movements | filter:$select.search">
+										{{movement}}
+									</ui-select-choices>
+								</ui-select>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-2 percentages">
+								<h4>Percentages:</h4>
+
+								<ui-select multiple ng-model="multiselect.percentages" theme="bootstrap" ng-disabled="disabled">
+									<ui-select-match placeholder="All...">{{$item}}</ui-select-match>
+									<ui-select-choices repeat="percentage in percentages | filter:$select.search">
+										{{percentage}}
+									</ui-select-choices>
+								</ui-select>
+
+							</div>
+
+							<div class="col-lg-2 timeofdays">
+								<h4>Time of Day</h4>
+
+								<ui-select multiple ng-model="multiselect.timeOfDays" theme="bootstrap" ng-disabled="disabled">
+									<ui-select-match placeholder="All...">{{$item}}</ui-select-match>
+									<ui-select-choices repeat="timeOfDay in timeOfDays | filter:$select.search">
+										{{timeOfDay}}
+									</ui-select-choices>
+								</ui-select>
+
+							</div>
+
+							<div class="col-lg-3 startdate">
+								<h4>From</h4>
+								<div class="date-picker">
+									<input type="text" ui-date ui-date-format="mm/dd/y" ng-model="forecastDateStart" ng-required="true" placeholder="From date...">
+								</div>
+							</div>
+
+							<div class="col-lg-3 enddate">
+								<h4>To</h4>
+								<div class="date-picker">
+									<input type="text" ui-date ui-date-format="mm/dd/y" ng-model="forecastDateEnd" ng-required="true" placeholder="To date...">
+								</div>
+							</div>
+
+
+							<div class="col-lg-2 outcomes" ng-show="forecastStatus == 'validated'">
+								<h4>Outcome</h4>
+
+								<ui-select multiple ng-model="multiselect.outcomes" theme="bootstrap" ng-disabled="disabled">
+									<ui-select-match placeholder="All...">{{$item}}</ui-select-match>
+									<ui-select-choices repeat="outcome in outcomes | filter:$select.search">
+										{{outcome}}
+									</ui-select-choices>
+								</ui-select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row forecasts-elements">
+		<div class="col-lg-4 col-lg-6" dir-paginate="forecast in forecastsData  | itemsPerPage: 15" >
+			<div class="element-wrapper">
+				<div class="element" ng-mouseenter="getClickedObject(forecast)" ng-mouseleave="cleanAnalysis()" ng-class="{ 'forecast-correct': forecast.correct == true , 'forecast-incorrect': forecast.correct == false }">
+
+					<div class="element-overlay">
+						<div class="forecast-details-element">
+							<div class="top">
+								<div class="header row">
+									<div class="col-lg-5">
+										<div class="user-wrapper">
+
+											<div class="user-stats">
+												<ul class="list-unstyled">
+													<li><span>Rank</span>
+														{{atGlanceData.community_rank}}
+													</li>
+
+													<li>
+														<span>Forecasts</span>
+														{{atGlanceData.Forecasts}}
+													</li>
+
+													<li><span>Score</span>
+														{{atGlanceData.user_performance_index}}
+													</li>
+												</ul>
+											</div>
+
+											<div class="follow">
+												<button class="btn btn-primary" ng-click="followUser();">
+													{{followButton}}
+												</button>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-lg-7">
+										<div class="description">
+
+											<p ng-show="!analysisOutput">
+												{{selectedItem.summary}}
+											</p>
+
+											<p ng-show="analysisOutput" ng-repeat="item in forecastAnalysis">
+												{{item.analysis}}
+											</p>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="loading-small">
+						<div class="ball"></div>
+						<div class="ball1"></div>
+					</div>
+
+					<div class="top-element">
+
+						<div class="header">
+							<h3>
+								{{forecast.company}}
+							</h3>
+						</div>
+
+						<div class="body">
+
+							<div class="row">
+								<div class="col-lg-4">
+									<div class="profile">
+										<img ng-src="{{forecast.avatar}}" alt="">
+										<h5>{{forecast.user}}</h5>
+									</div>
+								</div>
+
+								<div class="col-lg-8">
+									<div class="details">
+										<p>
+											<b>{{forecast.symbol | uppercase}}</b> will be <img ng-src="{{forecast.movement == 'up' && 'assets/images/up.png' || 'assets/images/down.png'}}"/>	<b>{{forecast.percentage}}</b> from <b>${{forecast.currentprice}}</b> during <b>{{forecast.timeofday | uppercase}}</b> on <b>{{forecast.predictiondate}}</b>
+										</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-lg-12">
+									<p ng-show="{{forecast.correct == false}}">{{forecast.summary}} <span class="label label-danger">False</span></p>
+									<p ng-show="{{forecast.correct == true}}" >{{forecast.summary}} <span class="label label-success">True</span></p>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="footer">
+
+						<table class="table">
+							<tbody>
+								<tr>
+									<td>Created:<b>{{forecast.timestamp_str}}</b></td>
+									<td>Realization: <b>{{roundNumbers(forecast.latency)}} hours</b></td>
+								</tr>
+
+								<tr>
+									<td>Market Cap: <b>{{forecast.mcapcategory}}</b></td>
+									<td>Sector: <b>{{forecast.sector}}</b></td>
+								</tr>
+							</tbody>
+						</table>
+
+						<!--<ul>-->
+							<!--<li>-->
+								<!--<img ng-src="assets/images/user-forecast.png" alt=""/>{{forecast.user}}-->
+							<!--</li>-->
+
+							<!--<li>-->
+								<!--<img ng-src="assets/images/date-forecast.png" alt=""/>-->
+								<!--{{forecast.predictiondate}}-->
+							<!--</li>-->
+
+							<!--<li>-->
+								<!--<img ng-src="{{forecast.movement == 'up' && 'assets/images/up.png' || 'assets/images/down.png'}}"/>	{{forecast.percentage}}-->
+							<!--</li>-->
+						<!--</ul>-->
+					</div>
+				</div>
+
+				<button class="delete" ng-show="{{nicknameComparing(currentUsername,forecast.user) && forecastStatus == 'pending'}}" ng-click="deleteClickedObject(forecast)">
+					<img ng-src="assets/images/x.png" alt=""/>
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="pagination clearfix">
+				<dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)">
+
+					<ul class="pagination" ng-if="1 < pages.length || !autoHide">
+						<li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }">
+							<a href="" ng-click="setCurrent(1)">&laquo;</a>
+						</li>
+						<li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }">
+							<a href="" ng-click="setCurrent(pagination.current - 1)">&lsaquo;</a>
+						</li>
+						<li ng-repeat="pageNumber in pages track by tracker(pageNumber, $index)" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == '...' }">
+							<a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a>
+						</li>
+
+						<li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }">
+							<a href="" ng-click="setCurrent(pagination.current + 1)">&rsaquo;</a>
+						</li>
+						<li ng-if="boundaryLinks"  ng-class="{ disabled : pagination.current == pagination.last }">
+							<a href="" ng-click="setCurrent(pagination.last)">&raquo;</a>
+						</li>
+					</ul>
+				</dir-pagination-controls>
+			</div>
+		</div>
+	</div>
+</div>

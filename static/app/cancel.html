@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="assets/styles/css/bootstrap.min.css">
+    <!--<script type="text/javascript" src="https://js.stripe.com/v2/"></script>-->
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+
+    <script type="text/javascript" src="lib/js/jquery.js"></script>
+    <script type="text/javascript" src="lib/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<div style="padding: 20px;">
+    <button id="customButton">Cancel  subscribtion</button>
+
+</div>
+
+<script type="text/javascript">
+
+    $('#customButton').on('click', function(e) {
+        $.ajax({
+            url: '/api/v1/personal/stripe/cancel',
+            type: 'POST',
+            data: {},
+            success: function (a) {
+                console.log('Cancellation submited to server.',a);
+            },
+            error:function (a) {
+                console.error('Cancellation not submitted.',a);
+            }
+        });
+        e.preventDefault();
+    });
+
+
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,569 @@
+<div class="col-lg-9 queries-page" ng-controller="BasicQueriesCtrl">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="customization">
+
+				<div class="row">
+					<div class="col-md-12 no-padding">
+						<div class="title">
+							<h1>
+								Queries
+							</h1>
+						</div>
+					</div>
+				</div>
+
+				<div class="master-customization">
+					<ul class="nav nav-tabs">
+						<li class="active"><a ng-click="getQueries()" uib-popover="Check out user(s) performance or preference in different categories" popover-trigger="mouseenter" popover-popup-delay="1000" popover-placement="bottom"  data-toggle="tab" href="#basic-queries" target="_self">Basic Queries</a></li>
+						<li><a  uib-popover="Determine user(s) performance or preference under many conditions using custom filters" popover-trigger="mouseenter" popover-popup-delay="1000" popover-placement="bottom" data-toggle="tab" ng-click="getCustomQueries()" href="#custom-queries" target="_self">Custom Queries</a></li>
+					</ul>
+
+					<div class="tab-content">
+
+						<div id="basic-queries" class="tab-pane fade in active">
+							<div id="basic-query" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+								<div class="row basic-query">
+									<div class="col-md-2 selection-market">
+										<h4>Market</h4>
+										<div class="market-selection selection">
+											<ui-select ng-model="queryMarket.selected" theme="bootstrap" ng-disabled="disabled" on-select="changeMarket()">
+												<ui-select-match placeholder="Market selection..."><img ng-src="assets/images/flags/{{$select.selected.flag}}" alt=""/> {{$select.selected.name}}</ui-select-match>
+
+												<ui-select-choices repeat="market in queryMarkets | filter: $select.search ">
+													<img ng-src="assets/images/flags/{{market.flag}}" alt=""/>{{market.name}}
+												</ui-select-choices>
+											</ui-select>
+										</div>
+									</div>
+
+									<div class="col-md-4 limit-dropdown query-selection">
+										<h4>Query:</h4>  <span class="info" uib-popover="{{basicQuery.selected.description}}" popover-trigger="mouseenter"> <img ng-src="assets/images/i.png" alt=""></span>
+										<div class="forecasts-from selection">
+											<ui-select ng-model="basicQuery.selected" theme="bootstrap" ng-disabled="disabled" on-select="onBasicQuerySelect()">
+												<ui-select-match placeholder="Forecast results..."> {{$select.selected.name}}</ui-select-match>
+
+												<ui-select-choices repeat="query in basicQueries | filter: $select.search" position='down'>
+													{{query.name}}
+												</ui-select-choices>
+											</ui-select>
+										</div>
+									</div>
+
+
+									<div class="col-md-4 selection-date">
+										<h4>Period:</h4>
+										<div class="forecasts-from selection">
+											<ui-select ng-model="queryDate.selected" theme="bootstrap" ng-disabled="disabled" on-select="onDateRangeSelection()">
+												<ui-select-match placeholder="Forecast results..."> {{$select.selected.name}}</ui-select-match>
+
+												<ui-select-choices repeat="date in queryDates | filter: $select.search" position='down'>
+													{{date.name}}
+												</ui-select-choices>
+											</ui-select>
+										</div>
+									</div>
+
+									<div class="col-md-2 submit">
+										<div class="btn-container">
+											<button class="btn submit" ng-click="getUpdatedQueries()">Submit</button>
+										</div>
+									</div>
+
+									<div class="col-md-2 col-md-offset-6" ng-show="queryDate.selected.call === 'custom'">
+										<h4>Start</h4>
+										<div class="date-picker">
+											<input type="text" ui-date ui-date-format="mm/dd/y" ng-model="customStartDate" ng-required="true" placeholder="From date...">
+										</div>
+									</div>
+									<div class="col-md-2" ng-show="queryDate.selected.call === 'custom'">
+										<h4>End</h4>
+										<div class="date-picker">
+											<input type="text" ui-date ui-date-format="mm/dd/y" ng-model="customEndDate" ng-required="true" placeholder="To date...">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div id="custom-queries" class="tab-pane fade">
+							<div class="row">
+								<div class="col-md-2 market-select">
+									<h4>Market</h4>
+									<div class="market-selection selection">
+										<ui-select ng-model="queryMarket.selected" theme="bootstrap" ng-disabled="disabled" on-select="liveSearchSymbol()">
+											<ui-select-match placeholder="Market Selection..."><img ng-src="assets/images/flags/{{$select.selected.flag}}" alt=""/> {{$select.selected.name}}</ui-select-match>
+
+											<ui-select-choices repeat="market in queryMarkets | filter: $select.search ">
+												<img ng-src="assets/images/flags/{{market.flag}}" alt=""/>{{market.name}}
+											</ui-select-choices>
+										</ui-select>
+									</div>
+								</div>
+
+
+								<div class="col-md-4 query-name">
+									<h4>Query name</h4>
+									<div class="selection">
+										<ui-select ng-model="customQuery.type.selected" theme="bootstrap" ng-disabled="disabled">
+											<ui-select-match placeholder="Query Name...">{{$select.selected.name}}</ui-select-match>
+
+											<ui-select-choices repeat="type in customQuery.types | filter: $select.search ">
+												{{type.name}}
+											</ui-select-choices>
+										</ui-select>
+									</div>
+								</div>
+
+
+
+								<div class="col-md-2 symbols time-of-day">
+									<h4>Time of Day</h4>
+									<ui-select multiple ng-model="customQuery.time" theme="bootstrap" ng-disabled="disabled">
+
+										<ui-select-choices repeat="time in customQuery.times | filter:$select.search | limitTo: 8" position="down">
+											{{time}}
+										</ui-select-choices>
+										<ui-select-match placeholder="All...">{{$item}}</ui-select-match>
+									</ui-select>
+
+								</div>
+
+								<div class="col-md-2 movement">
+									<h4>Movements</h4>
+									<div class="selection">
+										<ui-select ng-model="customQuery.movement.selected" theme="bootstrap" ng-disabled="disabled">
+											<ui-select-match placeholder="Query Name...">{{$select.selected}}</ui-select-match>
+
+											<ui-select-choices repeat="movement in customQuery.movements | filter: $select.search ">
+												{{movement}}
+											</ui-select-choices>
+										</ui-select>
+									</div>
+								</div>
+
+
+								<div class="col-md-2 submit">
+									<div class="btn-container">
+										<button class="btn submit" ng-click="getUpdatedCustomQueries()">Submit</button>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-2 market-capit">
+									<h4>Market Capitalization</h4>
+
+									<ui-select multiple ng-model="customQuery.marketCapitalization" theme="bootstrap" ng-disabled="disabled">
+										<ui-select-choices repeat="capitalization in customQuery.marketCapitalizations | filter:$select.search | limitTo: 8" position="down">
+											{{capitalization}}
+										</ui-select-choices>
+										<ui-select-match placeholder="All...">{{$item}}</ui-select-match>
+									</ui-select>
+
+								</div>
+
+
+								<div class="col-md-2 sector">
+									<h4>Sector</h4>
+
+									<ui-select multiple ng-model="customQuery.sector" theme="bootstrap">
+										<ui-select-match placeholder="All...">{{$item}}</ui-select-match>
+										<ui-select-choices repeat="sector in customQuery.sectors | filter:$select.search | limitTo: 10" position="down">
+											{{sector}}
+										</ui-select-choices>
+									</ui-select>
+								</div>
+
+								<div class="col-md-2 symbols stock-pref">
+
+									<h4>Stock Preference</h4>
+									<ui-select multiple ng-model="customQuery.symbol" theme="bootstrap" ng-disabled="disabled">
+										<ui-select-match placeholder="All...">{{$item.symbol}}</ui-select-match>
+										<ui-select-choices repeat="symbol.symbol as symbol in symbols | filter:$select.search | limitTo: 8" position="down">
+											<div ng-bind-html="symbol.symbol | highlight: $select.search"></div>
+											{{symbol.name}}
+										</ui-select-choices>
+									</ui-select>
+
+								</div>
+
+								<div class="col-md-3 user-base">
+									<h4>User Base</h4>
+									<div class="selection">
+										<ui-select ng-model="customQuery.community" theme="bootstrap" ng-disabled="disabled" on-select="onCommunitySelection()">
+											<ui-select-match placeholder="Select user base...">{{$select.selected}}</ui-select-match>
+
+											<ui-select-choices repeat="community in customQuery.communities | filter: $select.search ">
+												{{community}}
+											</ui-select-choices>
+										</ui-select>
+
+									</div>
+								</div>
+
+								<div class="col-md-3 period">
+									<h4>Period:</h4>
+									<div class="selection">
+										<ui-select ng-model="queryDate.selected" theme="bootstrap" ng-disabled="disabled" on-select="onDateRangeSelection()">
+											<ui-select-match placeholder="Forecast results..."> {{$select.selected.name}}</ui-select-match>
+
+											<ui-select-choices repeat="date in queryDates | filter: $select.search" position='down'>
+												{{date.name}}
+											</ui-select-choices>
+										</ui-select>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="row">
+								<div class="col-md-3 col-md-offset-6 groups" ng-show="showGroups">
+									<h4>Groups</h4>
+									<div class="selection">
+										<ui-select ng-model="customQuery.group" theme="bootstrap" ng-disabled="disabled" on-select="onDateRangeSelection()">
+											<ui-select-match placeholder="Choose the group..."> {{$select.selected.name}}</ui-select-match>
+
+											<ui-select-choices repeat="group in customQueryGroups | filter: $select.search" position='down'>
+												{{group.name}}
+											</ui-select-choices>
+										</ui-select>
+									</div>
+								</div>
+
+								<div class="col-md-3 col-md-offset-6 users" ng-show="showUsers">
+									<h4>Users</h4>
+									<ui-select multiple ng-model="customQuery.user" theme="bootstrap" ng-disabled="disabled">
+										<ui-select-match placeholder="All...">{{$item}}</ui-select-match>
+										<ui-select-choices repeat="user in customQuery.users | filter:$select.search | limitTo: 8" position="down">
+											{{user}}
+										</ui-select-choices>
+									</ui-select>
+								</div>
+
+								<div class="col-md-3 pull-right start-date" ng-show="queryDate.selected.call === 'custom'">
+									<h4>Start</h4>
+									<div class="date-picker selection">
+										<input type="text" ui-date ui-date-format="mm/dd/y" ng-model="customStartDate" ng-required="true" placeholder="From date...">
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-3 pull-right end-date" ng-show="queryDate.selected.call === 'custom'">
+									<h4>End</h4>
+									<div class="date-picker selection">
+										<input type="text" ui-date ui-date-format="mm/dd/y" ng-model="customEndDate" ng-required="true" placeholder="To date...">
+									</div>
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div ng-show="isBasicQuery">
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="search-users">
+					<input type="text" ng-model="search.user" placeholder="Search the users...">
+				</div>
+			</div>
+		</div>
+
+		<div class="row queries-elements">
+
+			<div class="col-lg-3" dir-paginate="query in queryData  | filter:search | itemsPerPage: 20 ">
+				<div class="element-wrapper">
+					<div class="element" ng-mouseenter="getHoveredObject(query)">
+
+						<div class="body row">
+							<div class="overlay">
+								<h3>
+									{{selectedItem.user}}
+								</h3>
+								<ul class="list-unstyled">
+									<li>
+										<span uib-popover="Overall market rank out of all users on the site" popover-trigger="mouseenter" popover-placement="top">{{atGlanceData.community_rank}}</span>
+									</li>
+
+									<li>
+										Market Rank
+									</li>
+
+								</ul>
+
+								<ul class="list-unstyled">
+									<li>
+										<span uib-popover="The number of validated forecasts for this user" popover-trigger="mouseenter" popover-placement="top">{{atGlanceData.Forecasts}}</span>
+									</li>
+
+									<li>
+										Total Forecasts
+									</li>
+								</ul>
+
+								<ul class="list-unstyled">
+
+									<li>
+									<span uib-popover="The personal score of this user based on their forecast performance" popover-trigger="mouseenter" popover-placement="top">
+										{{atGlanceData.user_performance_index}}
+									</span>
+									</li>
+
+
+									<li>
+										Personal Score
+									</li>
+
+								</ul>
+
+								<div class="follow">
+									<button class="btn btn-primary" ng-click="followUser();">
+										{{followButton}}
+									</button>
+									<button class="btn btn-default">
+										Profile
+									</button>
+								</div>
+							</div>
+
+							<div class="col-lg-12">
+								<div class="index">
+									<div class="index-value" ng-show="{{showRank == 'show-rank'}}">
+										Market Rank: <span>{{query.position}}</span> <img  ng-src="{{query.position == 1 && 'assets/images/first.png' || query.position == 2 && 'assets/images/second.png' || query.position == 3 && 'assets/images/third.png' ||  query.position <= 10 && 'assets/images/silver.png'|| 'assets/images/other.png'}}"/>
+									</div>
+
+									<div class="index-value" ng-show="{{showRank == 'show-query'}}">
+										{{indexKey}}: <span>{{query.position}}</span>  <img  ng-src="{{query.position == 1 && 'assets/images/first.png' || query.position == 2 && 'assets/images/second.png' || query.position == 3 && 'assets/images/third.png' || query.position <= 10 && 'assets/images/silver.png'|| 'assets/images/other.png'}}"/>
+									</div>
+								</div>
+
+								<div class="user-info-container">
+									<div class="thumb-container">
+										<img ng-src="{{query.avatar}}" alt="">
+									</div>
+
+									<div class="user-name">
+										<h5>
+											{{query.user}}
+										</h5>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="col-lg-12">
+								<div class="details">
+
+									<ul>
+										<li class="value"><span ng-hide="showForecastSector">{{formatNumber(query.resultval)}}</span><span ng-show="showForecastSector">{{query.MSS}}</span></li>
+										<li class="key">{{keyMain}}</li>
+									</ul>
+
+									<ul>
+										<li class="value"><span>{{query.allpicks}}</span></li>
+										<li class="key">{{keyOutputTwo}}</li>
+									</ul>
+
+									<ul ng-show="showKeyOutputThree">
+										<li class="value"><span>{{query.numberofpicks}}</span></li>
+										<li class="key">{{keyOutputThree}}</li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="loading-small">
+								<div class="ball"></div>
+								<div class="ball1"></div>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="pagination clearfix">
+					<dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)">
+
+						<ul class="pagination" ng-if="1 < pages.length || !autoHide">
+							<li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }">
+								<a href="" ng-click="setCurrent(1)">&laquo;</a>
+							</li>
+							<li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }">
+								<a href="" ng-click="setCurrent(pagination.current - 1)">&lsaquo;</a>
+							</li>
+							<li ng-repeat="pageNumber in pages track by tracker(pageNumber, $index)" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == '...' }">
+								<a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a>
+							</li>
+
+							<li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }">
+								<a href="" ng-click="setCurrent(pagination.current + 1)">&rsaquo;</a>
+							</li>
+							<li ng-if="boundaryLinks"  ng-class="{ disabled : pagination.current == pagination.last }">
+								<a href="" ng-click="setCurrent(pagination.last)">&raquo;</a>
+							</li>
+						</ul>
+					</dir-pagination-controls>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div ng-show="!isBasicQuery">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="search-users">
+					<input type="text" ng-model="search.user" placeholder="Search the users...">
+				</div>
+			</div>
+		</div>
+
+		<div class="row queries-elements">
+			<div class="col-lg-3" dir-paginate="query in customQueryData  | filter:search | itemsPerPage: 20 ">
+				<div class="element-wrapper">
+					<div class="element" ng-mouseenter="getHoveredObject(query)">
+						<div class="body row">
+							<div class="overlay">
+								<h3>
+									{{selectedItem.user}}
+								</h3>
+								<ul class="list-unstyled">
+									<li>
+										<span uib-popover="Overall market rank out of all users on the site" popover-trigger="mouseenter" popover-placement="top">{{atGlanceData.community_rank}}</span>
+									</li>
+
+									<li>
+										Market Rank
+									</li>
+
+								</ul>
+
+								<ul class="list-unstyled">
+									<li>
+										<span uib-popover="The number of validated forecasts for this user" popover-trigger="mouseenter" popover-placement="top">{{atGlanceData.Forecasts}}</span>
+									</li>
+
+									<li>
+										Total Forecasts
+									</li>
+								</ul>
+
+								<ul class="list-unstyled">
+
+									<li>
+									<span uib-popover="The personal score of this user based on their forecast performance" popover-trigger="mouseenter" popover-placement="top">
+										{{atGlanceData.user_performance_index}}
+									</span>
+									</li>
+
+
+									<li>
+										Personal Score
+									</li>
+
+								</ul>
+
+								<div class="follow">
+									<button class="btn btn-primary" ng-click="followUser();">
+										{{followButton}}
+									</button>
+									<button class="btn btn-default">
+										Profile
+									</button>
+								</div>
+							</div>
+
+							<div class="col-lg-12">
+
+								<div class="index">
+									<div class="index-value" ng-show="{{customQuery.positionOutput !== 'false'}}">
+										{{customQuery.positionOutput}}: <span>{{query.position}}</span> <img  ng-src="{{query.position == 1 && 'assets/images/first.png' || query.position == 2 && 'assets/images/second.png' || query.position == 3 && 'assets/images/third.png' ||  query.position <= 10 && 'assets/images/silver.png'|| 'assets/images/other.png'}}"/>
+									</div>
+								</div>
+
+
+								<div class="user-info-container">
+									<div class="thumb-container">
+										<img ng-src="{{query.avatar}}" alt="">
+									</div>
+
+									<div class="user-name">
+										<h5>
+											{{query.user}}
+										</h5>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="col-lg-12">
+
+								<div class="details">
+
+									<ul ng-show="showResultVal">
+										<li class="value"><span>{{formatNumberAlways(query.resultval)}} {{customQuery.sufix}} </span></li>
+										<li class="key">{{customQuery.resultvalOutput}}</li>
+									</ul>
+
+									<ul ng-show="showAllPicks">
+										<li class="value"><span>{{query.allpicks}}</span></li>
+										<li class="key">{{customQuery.allPicksOutput}}</li>
+									</ul>
+
+									<ul ng-show="showNumberOfPicks">
+										<li class="value"><span>{{query.numberofpicks}}</span></li>
+										<li class="key">{{customQuery.numberOfPicksOutput}}</li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="loading-small">
+								<div class="ball"></div>
+								<div class="ball1"></div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="pagination clearfix">
+					<dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)">
+
+						<ul class="pagination" ng-if="1 < pages.length || !autoHide">
+							<li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }">
+								<a href="" ng-click="setCurrent(1)">&laquo;</a>
+							</li>
+							<li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }">
+								<a href="" ng-click="setCurrent(pagination.current - 1)">&lsaquo;</a>
+							</li>
+							<li ng-repeat="pageNumber in pages track by tracker(pageNumber, $index)" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == '...' }">
+								<a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a>
+							</li>
+
+							<li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }">
+								<a href="" ng-click="setCurrent(pagination.current + 1)">&rsaquo;</a>
+							</li>
+							<li ng-if="boundaryLinks"  ng-class="{ disabled : pagination.current == pagination.last }">
+								<a href="" ng-click="setCurrent(pagination.last)">&raquo;</a>
+							</li>
+						</ul>
+					</dir-pagination-controls>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

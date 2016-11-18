@@ -1,0 +1,32 @@
+.ng-animation.ng-enter,
+.ng-animation.ng-leave,
+.ng-animation.ng-move {
+	-webkit-transition: 0.5s linear all;
+	transition: 0.5s linear all;
+	position:relative;
+}
+
+.ng-animation.ng-enter {
+	left:-10px;
+	opacity:0;
+}
+.ng-animation.ng-enter.ng-enter-active {
+	left:0;
+	opacity:1;
+}
+
+.ng-animation.ng-leave {
+	left:0;
+	opacity:1;
+}
+.ng-animation.ng-leave.ng-leave-active {
+	left:-10px;
+	opacity:0;
+}
+
+.ng-animation.ng-move {
+	opacity:0.5;
+}
+.ng-animation.ng-move.ng-move-active {
+	opacity:1;
+}

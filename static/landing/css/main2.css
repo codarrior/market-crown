@@ -1,0 +1,295 @@
+/*VARIABLES*/
+/*COLORS*/
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+html {
+  font-family: 'Open Sans', sans-serif;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+}
+.navbar-default {
+  background-color: #273238;
+  border-bottom: 1px;
+}
+.navbar-brand {
+  padding: 5px;
+}
+.navbar-default .navbar-nav > li > a {
+  padding-top: 15px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-left: 15px;
+  margin-right: 15px;
+  color: #eeeeee;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:active,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #4cb050;
+  border-bottom: 2px solid #4cb050;
+}
+@media (min-width: 768px) {
+  .mc-menu {
+    float: right !important;
+  }
+}
+.mc-hero {
+  margin-top: 50px;
+  background-image: url(../images/header.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-position: top center;
+  top: 0;
+  left: 0;
+}
+.mc-circle {
+  text-align: center;
+  width: 400px;
+  height: 400px;
+  background: rgba(255, 255, 255, 0.8);
+  float: none;
+  margin: 0 auto;
+  border-radius: 250px;
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+.mc-circle .mc-circle-content {
+  display: block;
+  margin: 15% auto;
+  width: 80%;
+  text-align: center;
+}
+.mc-circle .mc-circle-content h1 {
+  text-align: center;
+  font-size: 3.5em;
+  border-bottom: 2px solid #4cb050;
+  color: #4cb050;
+  margin-left: auto;
+  margin-right: auto;
+  width: 210px;
+  font-weight: bold;
+}
+.mc-circle .mc-circle-content h2 {
+  padding-top: 15px;
+  padding-bottom: 10px;
+  font-size: 2em;
+  color: #273238;
+  font-weight: 100;
+}
+.mc-circle .mc-circle-content p {
+  padding: 0px 0px;
+  font-size: .9em;
+  color: #273238;
+}
+/*BUTTONS*/
+.btn-dropshadow {
+  -webkit-box-shadow: 0.8px 0.8px 2px 0.8px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 0.8px 0.8px 2px 0.8px rgba(0, 0, 0, 0.35);
+  box-shadow: 0.8px 0.8px 2px 0.8px rgba(0, 0, 0, 0.35);
+}
+.btn-dropshadow:hover {
+  -webkit-box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+  box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+}
+.btn-dropshadow:hover {
+  -webkit-box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+  box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+}
+.btn-dropshadow:active {
+  -webkit-box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+  box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+}
+.btn-basic {
+  font-size: .8em;
+  color: #eeeeee;
+  background: #4cb050;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4cb050', endColorstr='#036934', GradientType=0);
+  border: 1px solid #4cb050;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#369344', endColorstr='#4cb050', GradientType=1);
+}
+.btn-basic:hover,
+.btn-basic:active,
+.btn-basic:focus,
+.btn-basic:target {
+  color: #eeeeee;
+  border: 1px solid #369344;
+}
+.ghost-button {
+  color: #4cb050;
+  border: 2px solid #4cb050;
+  border-radius: 50px;
+  width: 80%;
+  font-size: .8em;
+  text-decoration: none;
+  padding: 5px 15px;
+}
+.ghost-button:hover,
+.ghost-button:active,
+.ghost-button:focus {
+  background-color: #4cb050;
+  color: #eeeeee;
+  text-decoration: none;
+}
+.mc-loginbtn {
+  font-size: .8em;
+  color: #eeeeee;
+  background: #4cb050;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4cb050', endColorstr='#036934', GradientType=0);
+  border: 1px solid #4cb050;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#369344', endColorstr='#4cb050', GradientType=1);
+  -webkit-box-shadow: 0.8px 0.8px 2px 0.8px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 0.8px 0.8px 2px 0.8px rgba(0, 0, 0, 0.35);
+  box-shadow: 0.8px 0.8px 2px 0.8px rgba(0, 0, 0, 0.35);
+  padding-left: 8px;
+  width: 80px;
+  height: 25px;
+  margin-top: 12px;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-bottom: 10px;
+  background: -moz-linear-gradient(top, #4cb050 0%, #036934 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, #4cb050), color-stop(100%, #036934));
+  background: -webkit-linear-gradient(top, #4cb050 0%, #036934 100%);
+  background: -o-linear-gradient(top, #4cb050 0%, #036934 100%);
+  background: -ms-linear-gradient(top, #4cb050 0%, #036934 100%);
+  background: linear-gradient(to bottom, #4cb050 0%, #036934 100%);
+}
+.mc-loginbtn:hover,
+.mc-loginbtn:active,
+.mc-loginbtn:focus,
+.mc-loginbtn:target {
+  color: #eeeeee;
+  border: 1px solid #369344;
+}
+.mc-loginbtn:hover {
+  -webkit-box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+  box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+}
+.mc-loginbtn:hover {
+  -webkit-box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+  box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+}
+.mc-loginbtn:active {
+  -webkit-box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+  box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+}
+.mc-loginbtn:hover {
+  background: -moz-linear-gradient(bottom, #4cb050 0%, #036934 100%);
+  background: -webkit-gradient(left bottom, left top, color-stop(0%, #4cb050), color-stop(100%, #036934));
+  background: -webkit-linear-gradient(bottom, #4cb050 0%, #036934 100%);
+  background: -o-linear-gradient(bottom, #4cb050 0%, #036934 100%);
+  background: -ms-linear-gradient(bottom, #4cb050 0%, #036934 100%);
+  background: linear-gradient(to top, #4cb050 0%, #036934 100%);
+}
+.mc-signupbtn {
+  font-size: .8em;
+  color: #eeeeee;
+  background: #4cb050;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4cb050', endColorstr='#036934', GradientType=0);
+  border: 1px solid #4cb050;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#369344', endColorstr='#4cb050', GradientType=1);
+  -webkit-box-shadow: 0.8px 0.8px 2px 0.8px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 0.8px 0.8px 2px 0.8px rgba(0, 0, 0, 0.35);
+  box-shadow: 0.8px 0.8px 2px 0.8px rgba(0, 0, 0, 0.35);
+  background-color: #4cb050;
+  border: 2px solid #369344;
+  margin: 10px 0px;
+  width: 150px;
+  height: 50px;
+  font-size: 1.5em;
+  padding-top: 10px;
+  font-weight: normal;
+}
+.mc-signupbtn:hover,
+.mc-signupbtn:active,
+.mc-signupbtn:focus,
+.mc-signupbtn:target {
+  color: #eeeeee;
+  border: 1px solid #369344;
+}
+.mc-signupbtn:hover {
+  -webkit-box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+  box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+}
+.mc-signupbtn:hover {
+  -webkit-box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+  box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+}
+.mc-signupbtn:active {
+  -webkit-box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+  box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.25);
+}
+.mc-signupbtn:hover,
+.mc-signupbtn:active,
+.mc-signupbtn:focus,
+.mc-signupbtn:target {
+  background-color: #4cb050;
+}
+.btn-learnmore {
+  color: #4cb050;
+  border: 2px solid #4cb050;
+  border-radius: 50px;
+  width: 80%;
+  font-size: .8em;
+  text-decoration: none;
+  padding: 5px 15px;
+  margin-bottom: 20px;
+}
+.btn-learnmore:hover,
+.btn-learnmore:active,
+.btn-learnmore:focus {
+  background-color: #4cb050;
+  color: #eeeeee;
+  text-decoration: none;
+}
+/*TOP SECTION*/
+.mc-whyuse {
+  text-align: center;
+  background-color: #eeeeee;
+}
+.mc-whyuse img {
+  height: 100px;
+  width: 100px;
+  margin-top: 60px;
+}
+.mc-whyuse .mc-colcontent {
+  margin-top: 0px;
+  margin-bottom: 20px;
+}
+.mc-whyuse .mc-colcontent h3 {
+  color: #5e5e5e;
+  height: 60px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-size: 1em;
+}
+.mc-whyuse h1 {
+  color: #4cb050;
+  font-size: 2em;
+  font-weight: bold;
+  margin-top: 30px;
+}
+.mc-whyuse h2 {
+  color: #273238;
+  font-size: 1em;
+  margin-top: 10px;
+}
+/*BOTTOM SECTION*/

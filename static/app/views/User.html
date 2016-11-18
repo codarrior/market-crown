@@ -1,0 +1,723 @@
+<div ng-controller="UserCtrl">
+	<div class="col-lg-9 user-page">
+		<!-- Modal -->
+		<div id="createGroup" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Create New Group</h4>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal" ng-submit="createGroup()">
+							<fieldset>
+								<div class="form-group">
+									<label class="col-lg-12 control-label">Name</label>
+									<div class="col-lg-12">
+										<input  ng-model="group.name" type="text" class="form-control" placeholder="Group name...">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-lg-12 control-label">Description</label>
+									<div class="col-lg-12">
+										<textarea ng-model="group.description" class="form-control" rows="2" id="textArea" placeholder="Group Description..."></textarea>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-lg-12 control-label">Members</label>
+									<div class="col-lg-12">
+										<ui-select multiple ng-model="group.members" theme="bootstrap">
+											<ui-select-match placeholder="Select members...">{{$item}}</ui-select-match>
+											<ui-select-choices repeat="user in users | filter:$select.search | limitTo: 10" position="down">
+												{{user}}
+											</ui-select-choices>
+										</ui-select>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-lg-12">
+										<button type="submit" class="btn btn-primary" >Create Group</button>
+									</div>
+								</div>
+
+							</fieldset>
+						</form>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div id="addMemberToGroup" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Add member to {{profileStats.activeGroup.name}} group</h4>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal" ng-submit="addMemberToGroup()">
+							<fieldset>
+								<div class="form-group">
+									<label class="col-lg-12 control-label">Members</label>
+									<div class="col-lg-12">
+										<ui-select multiple ng-model="group.members" theme="bootstrap">
+											<ui-select-match placeholder="Select members...">{{$item}}</ui-select-match>
+											<ui-select-choices repeat="user in users | filter:$select.search | limitTo: 10" position="down">
+												{{user}}
+											</ui-select-choices>
+										</ui-select>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-lg-12">
+										<button type="submit" class="btn btn-primary">Submit</button>
+									</div>
+								</div>
+
+							</fieldset>
+						</form>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="customization">
+
+					<div class="row">
+						<div class="title clearfix">
+
+							<div class="col-lg-2 user-selection">
+								<div class="selection search-switch-selection">
+									<ui-select ng-model="profileStats.usersSelection.active" theme="bootstrap" ng-disabled="disabled">
+										<ui-select-match placeholder="All users">{{$select.selected.name}}</ui-select-match>
+
+										<ui-select-choices repeat="selection in profileStats.usersSelection | filter: $select.search">
+											{{selection.name}}
+										</ui-select-choices>
+									</ui-select>
+								</div>
+
+								<!--<div class="btn-group search-switch">-->
+								<!---->
+								<!---->
+								<!--<label class="btn btn-primary" ng-model="profileStats.searchStatus" uib-btn-radio="'all'" ng-click="">-->
+								<!--<ul>-->
+								<!--<li class="img">-->
+								<!--<img ng-src="{{profileStats.searchStatus == 'all' && 'assets/images/active.png' || 'assets/images/details.png'}}"/>-->
+								<!--</li>-->
+
+								<!--<li>-->
+								<!--All Users-->
+								<!--</li>-->
+								<!--</ul>-->
+
+								<!--</label>-->
+								<!--<label class="btn btn-primary" ng-model="profileStats.searchStatus" uib-btn-radio="'fromGroup'" ng-click="">-->
+								<!--<ul>-->
+								<!--<li class="img">-->
+								<!--<img ng-src="{{profileStats.searchStatus == 'fromGroup' && 'assets/images/active.png' || 'assets/images/details.png' }}"/>-->
+								<!--</li>-->
+
+								<!--<li>-->
+								<!--From My Groups-->
+								<!--</li>-->
+								<!--</ul>-->
+								<!--</label>-->
+								<!--</div>-->
+							</div>
+
+							<div class="col-lg-2 group-selection" ng-show="profileStats.usersSelection.active.call === 'group'">
+								<div class="selection search-switch-selection">
+									<ui-select ng-model="profileStats.usersGroup.chosen" theme="bootstrap" ng-disabled="disabled" on-select="changeMarket()">
+										<ui-select-match placeholder="Group selection">{{$select.selected.name}}</ui-select-match>
+
+										<ui-select-choices repeat="selection in profileStats.usersGroups | filter: $select.search">
+											{{selection.name}}
+										</ui-select-choices>
+									</ui-select>
+								</div>
+
+							</div>
+
+							<div class="col-lg-3 input-search" ng-show="profileStats.usersSelection.active.call === 'all'">
+								<input type="text" placeholder="Search for users..." ng-keyup="$event.keyCode == 13 && redirectToUser()" ng-model="username.search" uib-typeahead="user for user in users | filter:$viewValue | limitTo:8" class="form-control">
+								<img ng-src="assets/images/search-icon.png" alt="">
+							</div>
+
+							<div class="col-lg-3 select-user" ng-show="profileStats.usersSelection.active.call === 'group'">
+								<div class="selection search-switch-selection">
+									<ui-select ng-model="username.search" theme="bootstrap" ng-disabled="disabled" on-select="redirectToUser()">
+										<ui-select-match placeholder="Select user">{{$select.selected}}</ui-select-match>
+
+										<ui-select-choices repeat="selection in profileStats.usersGroup.chosen.members | filter: $select.search">
+											{{selection}}
+										</ui-select-choices>
+									</ui-select>
+								</div>
+							</div>
+
+							<div class="col-lg-4 user-info">
+								<h1>
+									{{username.display}} <span>profile details</span>
+								</h1>
+							</div>
+						</div>
+					</div>
+					<div class="master-customization">
+						<div class="row">
+							<div class="col-lg-3 market">
+								<h4>Market</h4>
+								<div class="market-selection selection">
+									<ui-select ng-model="profileStats.market.selected" theme="bootstrap" ng-disabled="disabled" on-select="changeMarket()">
+										<ui-select-match placeholder="Market selection..."><img ng-src="assets/images/flags/{{$select.selected.flag}}" alt=""/> {{$select.selected.name}}</ui-select-match>
+
+										<ui-select-choices repeat="market in profileStats.markets | filter: $select.search">
+											<img ng-src="assets/images/flags/{{market.flag}}" alt=""/>{{market.name}}
+										</ui-select-choices>
+									</ui-select>
+								</div>
+							</div>
+
+							<div class="col-lg-3 period">
+								<h4>Period:</h4>
+								<div class="forecasts-from selection">
+									<ui-select ng-model="profileStats.date.selected" theme="bootstrap" ng-disabled="disabled" on-select="profileStats.dateSelection()">
+										<ui-select-match placeholder="Forecast results..."> {{$select.selected.name}}</ui-select-match>
+
+										<ui-select-choices repeat="date in profileStats.dates | filter: $select.search" position='down'>
+											{{date.name}}
+										</ui-select-choices>
+									</ui-select>
+								</div>
+							</div>
+
+							<div class="col-lg-2 start-date" ng-show="profileStats.date.selected.call === 'custom'">
+								<div class="date-picker">
+									<h4>Start Date:</h4>
+									<input type="text" ui-date ui-date-format="mm-dd-y" ng-model="profileStats.customDateStart" ng-required="true" placeholder="From date...">
+								</div>
+							</div>
+
+							<div class="col-lg-2 end-date" ng-show="profileStats.date.selected.call === 'custom'">
+								<div class="date-picker">
+									<h4>End Date</h4>
+									<input type="text" ui-date ui-date-format="mm-dd-y" ng-model="profileStats.customDateEnd" ng-required="true" placeholder="From date...">
+								</div>
+							</div>
+
+							<div class="col-lg-6 submit" ng-class="{ collg2 : profileStats.date.selected.call === 'custom' }">
+								<div class="btn-container">
+									<button ng-click="refreshChartData(); refreshUserDetailsData()" class="btn submit">Submit</button>
+								</div>
+							</div>
+						</div>
+
+						<div class="row tabs">
+							<div class="col-lg-12">
+								<ul class="nav nav-tabs">
+									<li class="active"><a href="#stats" data-toggle="tab" aria-expanded="true" target="_self">Statistics</a></li>
+									<li class=""><a href="#forecasts" data-toggle="tab" aria-expanded="false" target="_self" ng-click="getSimpleForecasts('pending')">Forecasts</a></li>
+									<li class=""><a href="#followers" data-toggle="tab" aria-expanded="false" target="_self">Followers</a></li>
+									<li class=""><a href="#following" data-toggle="tab" aria-expanded="false" target="_self">Following</a></li>
+									<li class="" ng-show="isMyProfile"><a href="#groups" data-toggle="tab" aria-expanded="false" target="_self" ng-click="getMyGroups()" >My Groups</a></li>
+								</ul>
+							</div>
+						</div>`
+					</div>
+				</div>
+
+		<div id="user-profile-content" class="tab-content">
+			<div class="tab-pane fade active in " id="stats">
+				<div class="row row-regular">
+					<div class="col-lg-12">
+						<div class="chart-element">
+							<div class="header">
+								<h2>Sector Preference</h2>
+							</div>
+							<nvd3 options="options.barChart" data="profileStats.chart.sectorPreference"></nvd3>
+						</div>
+					</div>
+
+					<div class="col-lg-12">
+						<div class="chart-element">
+							<div class="header">
+								<h2>Market Cap Preference</h2>
+							</div>
+							<nvd3 options="options.barChart" data="profileStats.chart.marketCapPreference"></nvd3>
+						</div>
+					</div>
+
+					<div class="col-lg-6">
+						<div class="chart-element">
+							<div class="header">
+								<h2>Total % Correct</h2>
+							</div>
+							<nvd3 options="options" data="profileStats.chart.totalCorrect"></nvd3>
+						</div>
+					</div>
+
+					<div class="col-lg-6">
+						<div class="chart-element">
+							<div class="header">
+								<h2>Forecast Sentiment</h2>
+							</div>
+							<nvd3 options="options" data="profileStats.chart.forecastSentiment"></nvd3>
+						</div>
+					</div>
+
+					<div class="col-lg-6">
+						<div class="chart-element">
+							<div class="header">
+								<h2>Forecast Pending Sentiment</h2>
+							</div>
+							<nvd3 options="options" data="profileStats.chart.forecastPendingSentiment"></nvd3>
+						</div>
+					</div>
+
+					<div class="col-lg-6">
+						<div class="chart-element">
+							<div class="header">
+								<h2>Time of Day Preference</h2>
+							</div>
+							<nvd3 options="options" data="profileStats.chart.timeOfDayPreference"></nvd3>
+						</div>
+					</div>
+
+
+
+					<div class="col-lg-12">
+						<div class="compare-users">
+							<div class="row">
+								<div class="col-sm-3">
+									<h4>Compare With Other Users</h4>
+								</div>
+
+								<div class="col-sm-4">
+									<ui-select multiple ng-model="multiselect.users" theme="bootstrap">
+										<ui-select-match placeholder="Select users...">{{$item}}</ui-select-match>
+										<ui-select-choices repeat="user in users | filter:$select.search | limitTo: 10" position="down">
+											{{user}}
+										</ui-select-choices>
+									</ui-select>
+								</div>
+
+								<div class="col-lg-5">
+									<div class="btn-container">
+										<button class="btn submit" ng-click="compareUserUpdate();">Submit</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-12">
+						<div class="chart-element">
+							<div class="header">
+								<h2>Market Rank</h2>
+							</div>
+							<nvd3 options="lineOptions" data="lineData"></nvd3>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="forecasts">
+				<div class="row forecasts-elements row-regular">
+					<div class="col-md-12">
+						<div class="btn-group pending-validated">
+							<label class="btn btn-primary" ng-model="profileStats.forecastStatus" uib-btn-radio="'pending'" ng-click="getSimpleForecasts('pending')">
+								<ul>
+									<li class="img">
+										<img ng-src="{{profileStats.forecastStatus == 'pending' && 'assets/images/active.png' || 'assets/images/details.png'}}"/>
+									</li>
+
+									<li>
+										Pending
+									</li>
+								</ul>
+
+							</label>
+							<label class="btn btn-primary" ng-model="profileStats.forecastStatus" uib-btn-radio="'validated'" ng-click="getSimpleForecasts('validated')">
+								<ul>
+									<li class="img">
+										<img ng-src="{{profileStats.forecastStatus == 'validated' && 'assets/images/active.png' || 'assets/images/details.png' }}"/>
+									</li>
+
+									<li>
+										Validated
+									</li>
+								</ul>
+							</label>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-lg-6" dir-paginate="forecast in profileStats.forecasts  | itemsPerPage: 15">
+						<div class="element-wrapper">
+							<div class="element" ng-mouseenter="getClickedObject(forecast)" ng-mouseleave="cleanAnalysis()" ng-class="{ 'forecast-correct': forecast.correct == true , 'forecast-incorrect': forecast.correct == false }">
+
+								<div class="element-overlay">
+									<div class="forecast-details-element">
+										<div class="top">
+											<div class="header row">
+												<div class="col-lg-12">
+													<div class="description">
+
+														<p ng-show="!analysisOutput">
+															{{selectedItem.summary}}
+														</p>
+
+														<p ng-show="analysisOutput" ng-repeat="item in forecastAnalysis">
+															{{item.analysis}}
+														</p>
+
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="loading-small">
+									<div class="ball"></div>
+									<div class="ball1"></div>
+								</div>
+
+								<div class="top-element">
+
+									<div class="header">
+										<h3>
+											{{forecast.company}}
+										</h3>
+									</div>
+
+									<div class="body">
+
+										<div class="row">
+											<div class="col-lg-4">
+												<div class="profile">
+													<img ng-src="{{forecast.avatar}}" alt="">
+													<h5>{{forecast.user}}</h5>
+												</div>
+											</div>
+
+											<div class="col-lg-8">
+												<div class="details">
+													<p>
+														<b>{{forecast.symbol | uppercase}}</b> will be <img ng-src="{{forecast.movement == 'up' && 'assets/images/up.png' || 'assets/images/down.png'}}"/>	<b>{{forecast.percentage}}</b> from <b>${{forecast.currentprice}}</b> during <b>{{forecast.timeofday | uppercase}}</b> on <b>{{forecast.predictiondate}}</b>
+													</p>
+												</div>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-lg-12">
+												<p ng-show="{{forecast.correct == false}}">{{forecast.summary}} <span class="label label-danger">False</span></p>
+												<p ng-show="{{forecast.correct == true}}" >{{forecast.summary}} <span class="label label-success">True</span></p>
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+								<div class="footer">
+
+									<table class="table">
+										<tbody>
+										<tr>
+											<td>Created:<b>{{forecast.timestamp_str}}</b></td>
+											<td>Realization time: <b>{{roundNumbers(forecast.latency)}} hours</b></td>
+										</tr>
+
+										<tr>
+											<td>Market Cap: <b>{{forecast.mcapcategory}}</b></td>
+											<td>Sector: <b>{{forecast.sector}}</b></td>
+										</tr>
+										</tbody>
+									</table>
+
+								</div>
+							</div>
+							<button class="delete" ng-show="{{currentUser == forecast.user && profileStats.forecastStatus == 'pending'}}" ng-click="deleteClickedObject(forecast)">
+								<img ng-src="assets/images/x.png" alt=""/>
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="pagination clearfix">
+							<dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)">
+
+								<ul class="pagination" ng-if="1 < pages.length || !autoHide">
+									<li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }">
+										<a href="" ng-click="setCurrent(1)">&laquo;</a>
+									</li>
+									<li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }">
+										<a href="" ng-click="setCurrent(pagination.current - 1)">&lsaquo;</a>
+									</li>
+									<li ng-repeat="pageNumber in pages track by tracker(pageNumber, $index)" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == '...' }">
+										<a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a>
+									</li>
+
+									<li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }">
+										<a href="" ng-click="setCurrent(pagination.current + 1)">&rsaquo;</a>
+									</li>
+									<li ng-if="boundaryLinks"  ng-class="{ disabled : pagination.current == pagination.last }">
+										<a href="" ng-click="setCurrent(pagination.last)">&raquo;</a>
+									</li>
+								</ul>
+							</dir-pagination-controls>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade following-users" id="followers">
+				<div class="row row-regular">
+					<div class="col-md-2" ng-repeat="user in profileStats.followers track by $index">
+						<a href="#/user/{{user.username}}" ng-mouseenter="getAtGlanceCurrentUser(user)">
+							<div class="element">
+								<!--<div class="over">-->
+								<!--<ul>-->
+								<!--<li>Market Rank{{profileStats.hoveredUser.data.community_rank}}</li>-->
+								<!--<li>User Performance Score {{profileStats.hoveredUser.data.user_performance_index}}</li>-->
+								<!--</ul>-->
+								<!--</div>-->
+
+								<img ng-src="{{user.avatar}}" alt="">
+								<h5>{{user.username}}</h5>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade following-users" id="following">
+				<div class="row row-regular">
+					<div class="col-md-2" ng-repeat="user in profileStats.following track by $index">
+						<a href="#/user/{{user.username}}" ng-mouseenter="getAtGlanceCurrentUser(user)">
+							<div class="element">
+								<!--<div class="over">-->
+								<!--<ul>-->
+								<!--<li>Market Rank{{profileStats.hoveredUser.data.community_rank}}</li>-->
+								<!--<li>User Performance Score {{profileStats.hoveredUser.data.user_performance_index}}</li>-->
+
+								<!--</ul>-->
+								<!--</div>-->
+
+								<img ng-src="{{user.avatar}}" alt="">
+								<h5>{{user.username}}</h5>
+							</div>
+						</a>
+					</div>
+				</div>
+
+			</div>
+			<div class="tab-pane fade groups-container" id="groups">
+				<div class="row row-regular">
+					<div class="col-lg-12">
+						<div class="dashboard-element">
+							<div class="header">
+								<div class="row">
+									<div class="col-lg-9">
+										<p>Create user groups which you can later use to run custom queries against. Try it bellow!</p>
+									</div>
+
+									<div class="col-lg-3">
+										<button class="btn btn-success" data-toggle="modal" data-target="#createGroup">Create New Group</button>
+									</div>
+								</div>
+							</div>
+
+							<div class="body">
+								<div class="row">
+									<div class="col-lg-3 no-padding">
+										<div class="group-title" ng-repeat="group in profileStats.myGroups">
+											<div class="group-title-element" ng-class="{ active : profileStats.activeGroup.name == group.name }" ng-click="addActive(group)">
+												<h4>{{group.name}} <label class="label label-success" data-toggle="modal" data-target="#addMemberToGroup">New Member</label></h4>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-lg-9 no-padding">
+										<div class="row">
+											<div class="top">
+												<h4>
+													<span>{{profileStats.activeGroup.name}}</span>
+													<small>{{profileStats.activeGroup.description}}</small>
+												</h4>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-lg-3 member-element-container" ng-repeat="user in profileStats.activeGroup.members">
+												<button class="remove-user" ng-really-message="Are you sure you want to remove this user from the group?" ng-really-click="removeMemberFromGroup(user)"><img ng-src="assets/images/x.png" alt=""></button>
+												<a href="#/user/{{user.username}}">
+													<div class="member-element">
+														<img class="thumb" ng-src="{{user.avatar}}" alt="">
+														<h5>{{user.username}}</h5>
+													</div>
+												</a>
+											</div>
+										</div>
+
+										<div class="row" ng-show="profileStats.myGroups.length >= 1">
+											<div class="col-lg-12">
+												<div class="delete-group-button pull-right">
+													<button class="btn" ng-really-message="Are you sure you want to delete this group?" ng-really-click="deleteGroup(profileStats.activeGroup.guid)">Delete Group</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-3">
+		<div class="user-info user-info-profile">
+			<div class="dashboard-element">
+
+				<div class="user-info-header">
+					<img ng-src="{{profileStats.atGlance.avatar || '/userpics/$default.png'}}" alt=""/>
+					<h2>{{profileStats.atGlance.user || upercase}}</h2>
+					<h2 class="subtitle" ng-show="!isEditProfession" ng-click="isEditProfessionCheck();">{{profileStats.profession}}<span class="edit profession" ng-show="profileStats.atGlance.user.mc_username==currentUsername"></span></h2>
+					<div ng-show="isEditProfession && profileStats.atGlance.user.mc_username==currentUsername">
+						<input type="text" name="profession" ng-model="profileStats.profession" />
+						<div class="buttons">
+                            <button class="pull-right btn btn-success" type="button" ng-click="updateProfessionTagline();isEditProfession=false;">Submit</button>
+                            <button class="btn pull-right btn-cancel" ng-click="isEditProfession=false;dismisEditTag();">Cancel</button>
+                            <div class="clearfix"></div>
+                        </div>
+					</div>
+					<p ng-show="!isEditTagline" ng-click="isEditTaglineCheck();">{{profileStats.tagline}}
+						<span class="edit tagline" ng-show="profileStats.atGlance.user.mc_username==currentUsername"></span>
+					</p>
+					<div ng-show="isEditTagline && profileStats.atGlance.user.mc_username==currentUsername">
+						<input type="text" name="profession" ng-model="profileStats.tagline" />
+						<div class="buttons">
+                            <button class="pull-right btn btn-success" type="button" ng-click="updateProfessionTagline();isEditTagline=false;">Submit</button>
+                            <button class="btn pull-right btn-cancel" ng-click="isEditTagline=false;dismisEditTag();">Cancel</button>
+                            <div class="clearfix"></div>
+                        </div>
+					</div>
+					<div class="btn-container">
+						<button  ng-hide="isMyProfile" class="btn btn-primary" ng-click="followUser(profileStats.atGlance)">
+							{{followButton}}
+						</button>
+					</div>
+
+				</div>
+
+
+				<div class="user-info-elements">
+					<div id="at-a-glance" class="table-container">
+						<table class="table">
+							<tbody>
+							<tr>
+								<td>
+									<span>Community Rank:</span>
+									<span class="value">{{profileStats.atGlance.community_rank}}</span>
+								</td>
+								<td>
+									<span>Rank Length:</span>
+									<span class="value">{{profileStats.atGlance.reign_length}} days</span>
+								</td>
+							</tr>
+
+							<tr>
+
+								<td>
+									<span>Validated Forecasts:</span>
+									<span class="value">{{profileStats.atGlance.Forecasts}}</span>
+								</td>
+
+								<td>
+									<span>Pending Forecasts:</span>
+									<span class="value">{{profileStats.atGlance.pending_forecasts}}</span>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<span>Forecast Style:</span>
+									<span class="value">{{profileStats.atGlance.forecast_style}}</span>
+								</td>
+
+								<td>
+									<span>Performance score:</span>
+									<span class="value">{{profileStats.atGlance.user_performance_index}}</span>
+								</td>
+
+							</tr>
+
+							<tr>
+								<td>
+									<span>Favourite Market Cap:</span>
+									<span class="value">{{profileStats.atGlance.favorite_marketcap}}</span>
+								</td>
+
+								<td>
+								<span>
+									Favourite Sector:
+								</span>
+
+								<span class="value">
+									{{profileStats.atGlance.favorite_sector}}
+								</span>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<span>Following:</span>
+									<span class="value">{{profileStats.followingCount}}</span>
+								</td>
+
+								<td>
+								<span>
+									Followers:
+								</span>
+
+								<span class="value">
+									<span class="value">{{profileStats.followersCount}}</span>
+								</span>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<span>Average Forecasts Per Day:</span>
+									<span class="value">{{profileStats.atGlance.forecasts_per_day.toFixed(1)}}</span>
+								</td>
+
+								<td>
+								<span>
+									Average Latency:
+								</span>
+
+								<span class="value">
+										<span class="value">{{profileStats.atGlance.average_latency.toFixed(1)}} hours</span>
+								</span>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

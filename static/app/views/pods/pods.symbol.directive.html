@@ -1,0 +1,23 @@
+<div class="element">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="img-container">
+                    <img ng-src="{{msgs.avatar || '/userpics/$default.png'}}">
+                </div>
+            </div>
+            <div class="col-lg-10">
+                <p class="message ng-binding">
+                    <strong>$NBP</strong><br>
+                    {{msgs.message}}
+                </p>
+                <div class="row-regular">
+                    <div class="col-sm-6 col-lg-8">
+                        <p class="text-left author ng-binding">{{msgs.created}}</p>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
